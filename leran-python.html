@@ -1,0 +1,3019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python: The Practical Path</title>
+<style>
+  @page {
+    size: A4;
+    margin: 2.2cm 2cm 2.2cm 2cm;
+  }
+
+  @media print {
+    body { margin: 0; }
+    .no-print { display: none; }
+    .cover, .title-page, .toc, .part, .chapter, .appendix { page-break-before: always; }
+    .cover { page-break-after: always; }
+    .title-page { page-break-after: always; }
+    .toc { page-break-after: always; }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.7;
+    color: #1a1a1a;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 28px;
+    background: #fff;
+    font-size: 16px;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.25;
+    color: #111;
+    page-break-after: avoid;
+  }
+
+  h1 { font-size: 2.1rem; margin-top: 0; }
+  h2 { font-size: 1.45rem; margin-top: 2.2rem; border-bottom: 1px solid #ddd; padding-bottom: .3rem; }
+  h3 { font-size: 1.15rem; margin-top: 1.6rem; }
+  h4 { font-size: 1rem; margin-top: 1.2rem; }
+
+  p { margin: 0 0 1rem; text-align: justify; }
+
+  code, pre {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: .88em;
+  }
+
+  code {
+    background: #f4f4f4;
+    padding: .15em .35em;
+    border-radius: 3px;
+  }
+
+  pre {
+    background: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    padding: .9rem 1rem;
+    overflow-x: auto;
+    border-radius: 6px;
+    line-height: 1.5;
+    page-break-inside: avoid;
+  }
+
+  pre code { background: none; padding: 0; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0;
+    font-size: .95rem;
+    page-break-inside: avoid;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: .5rem .7rem;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th { background: #f2f2f2; }
+
+  blockquote {
+    border-left: 4px solid #ccc;
+    margin: 1.2rem 0;
+    padding: .2rem 0 .2rem 1rem;
+    color: #444;
+    font-style: italic;
+  }
+
+  ul, ol { margin: 0 0 1rem; padding-left: 1.4rem; }
+  li { margin-bottom: .35rem; }
+
+  /* ---------- COVER ---------- */
+  .cover {
+    text-align: center;
+    padding-top: 16vh;
+    min-height: 90vh;
+  }
+
+  .cover .kicker {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: .35em;
+    font-size: .8rem;
+    color: #777;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+  }
+
+  .cover h1 {
+    font-size: 3.6rem;
+    margin: 0;
+    letter-spacing: -.02em;
+  }
+
+  .cover .subtitle {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: #444;
+    margin-top: .4rem;
+  }
+
+  .cover .rule {
+    width: 90px;
+    height: 3px;
+    background: #111;
+    margin: 2.2rem auto;
+  }
+
+  .cover .tagline {
+    font-size: 1.05rem;
+    color: #333;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .cover .author {
+    margin-top: 4rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #222;
+  }
+
+  /* ---------- TITLE PAGE ---------- */
+  .title-page {
+    text-align: center;
+    padding-top: 22vh;
+  }
+
+  .title-page h1 { font-size: 2.6rem; margin-bottom: .3rem; }
+  .title-page .subtitle { font-style: italic; font-size: 1.25rem; color: #555; }
+  .title-page .meta {
+    margin-top: 5rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: .85rem;
+    color: #666;
+    line-height: 1.9;
+  }
+
+  /* ---------- TOC ---------- */
+  .toc h1 { text-align: center; margin-bottom: 2rem; }
+
+  .toc .part-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: .78rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #888;
+    margin-top: 1.6rem;
+    margin-bottom: .4rem;
+  }
+
+  .toc ul { list-style: none; padding-left: 0; margin: 0; }
+  .toc li {
+    margin: .3rem 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px dotted #ddd;
+    padding-bottom: .2rem;
+  }
+  .toc a { text-decoration: none; color: #111; }
+  .toc .pg { color: #888; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: .85rem; }
+
+  /* ---------- PART OPENER ---------- */
+  .part {
+    text-align: center;
+    padding-top: 22vh;
+    min-height: 80vh;
+  }
+
+  .part .part-num {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    font-size: .8rem;
+    color: #888;
+  }
+
+  .part h1 {
+    font-size: 2.6rem;
+    margin: 1rem 0 .5rem;
+  }
+
+  .part .part-desc {
+    font-style: italic;
+    color: #555;
+    max-width: 420px;
+    margin: 1.5rem auto 0;
+  }
+
+  /* ---------- CHAPTER ---------- */
+  .chapter { padding-top: 1rem; }
+
+  .chapter .chap-num {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: .8rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: #999;
+  }
+
+  .chapter h1 {
+    font-size: 2.2rem;
+    margin: .3rem 0 1.2rem;
+  }
+
+  .epigraph {
+    font-style: italic;
+    color: #555;
+    border-left: 3px solid #ddd;
+    padding-left: 1rem;
+    margin: 0 0 1.8rem;
+    font-size: .98rem;
+  }
+
+  .intro-box {
+    background: #f7f7f7;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    font-size: .95rem;
+  }
+
+  .intro-box h4 {
+    margin: 0 0 .5rem;
+    font-size: .8rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #777;
+  }
+
+  .intro-box ul { margin: 0; padding-left: 1.2rem; }
+
+  .takeaway {
+    background: #eef6ee;
+    border-left: 4px solid #4a8a4a;
+    padding: .9rem 1.1rem;
+    margin: 1.6rem 0;
+    border-radius: 0 6px 6px 0;
+    font-size: .95rem;
+  }
+
+  .takeaway h4 {
+    margin: 0 0 .4rem;
+    font-size: .78rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #3d7a3d;
+  }
+
+  .exercise {
+    background: #fdf6e8;
+    border-left: 4px solid #d4a72c;
+    padding: .9rem 1.1rem;
+    margin: 1.6rem 0;
+    border-radius: 0 6px 6px 0;
+    font-size: .95rem;
+  }
+
+  .exercise h4 {
+    margin: 0 0 .4rem;
+    font-size: .78rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #a07a15;
+  }
+
+  .exercise ol { margin: .4rem 0 0; padding-left: 1.2rem; }
+
+  .note {
+    font-size: .9rem;
+    color: #555;
+    border-top: 1px solid #eee;
+    padding-top: .6rem;
+    margin-top: 1rem;
+  }
+
+  .dropcap::first-letter {
+    font-size: 3.4rem;
+    float: left;
+    line-height: .85;
+    padding: .1rem .55rem 0 0;
+    font-family: Georgia, serif;
+    color: #111;
+  }
+
+  .appendix { padding-top: 1rem; }
+
+  .glossary dt { font-weight: bold; margin-top: .8rem; }
+  .glossary dd { margin: 0 0 .3rem 1.2rem; }
+
+  .center { text-align: center; }
+  .small { font-size: .9rem; color: #555; }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<div class="cover">
+  <div class="kicker">A Beginner's Guide</div>
+  <h1>Python</h1>
+  <div class="subtitle">The Practical Path</div>
+  <div class="rule"></div>
+  <p class="tagline">From your first line of code to real, working programs — a complete roadmap with explanations, examples, and exercises.</p>
+  <div class="author">Written for the Self-Taught Developer</div>
+</div>
+
+<!-- ============ TITLE PAGE ============ -->
+<div class="title-page">
+  <h1>Python: The Practical Path</h1>
+  <div class="subtitle">From Your First Line to Real Programs</div>
+  <div class="meta">
+    A Mentor's Guide for Beginners<br>
+    First Edition<br><br>
+    Written in plain language.<br>
+    Designed to be read, typed, and practiced.
+  </div>
+</div>
+
+<!-- ============ TABLE OF CONTENTS ============ -->
+<div class="toc">
+  <h1>Contents</h1>
+
+  <div class="part-label">Front Matter</div>
+  <ul>
+    <li><a href="#preface">Preface: How to Use This Book</a><span class="pg">i</span></li>
+  </ul>
+
+  <div class="part-label">Part I — Getting Ready</div>
+  <ul>
+    <li><a href="#ch1">1. What Python Is and Why It Matters</a><span class="pg">1</span></li>
+    <li><a href="#ch2">2. Setting Up Your Workshop</a><span class="pg">7</span></li>
+  </ul>
+
+  <div class="part-label">Part II — The Language</div>
+  <ul>
+    <li><a href="#ch3">3. Variables and Values</a><span class="pg">13</span></li>
+    <li><a href="#ch4">4. Operators and Logic</a><span class="pg">21</span></li>
+    <li><a href="#ch5">5. Control Flow</a><span class="pg">29</span></li>
+    <li><a href="#ch6">6. Functions</a><span class="pg">37</span></li>
+    <li><a href="#ch7">7. Lists and Tuples</a><span class="pg">47</span></li>
+    <li><a href="#ch8">8. Dictionaries and Sets</a><span class="pg">57</span></li>
+    <li><a href="#ch9">9. Strings and Text</a><span class="pg">65</span></li>
+  </ul>
+
+  <div class="part-label">Part III — How Python Really Works</div>
+  <ul>
+    <li><a href="#ch10">10. Scope and Namespaces</a><span class="pg">75</span></li>
+    <li><a href="#ch11">11. References and Mutability</a><span class="pg">83</span></li>
+    <li><a href="#ch12">12. Truthiness and the Zen of Python</a><span class="pg">91</span></li>
+  </ul>
+
+  <div class="part-label">Part IV — Working with Data</div>
+  <ul>
+    <li><a href="#ch13">13. Comprehensions</a><span class="pg">99</span></li>
+    <li><a href="#ch14">14. Files, JSON, and Paths</a><span class="pg">107</span></li>
+    <li><a href="#ch15">15. Errors and Exceptions</a><span class="pg">115</span></li>
+  </ul>
+
+  <div class="part-label">Part V — Objects and Modules</div>
+  <ul>
+    <li><a href="#ch16">16. Classes and Objects</a><span class="pg">125</span></li>
+    <li><a href="#ch17">17. Modules and Packages</a><span class="pg">135</span></li>
+    <li><a href="#ch18">18. The Standard Library Tour</a><span class="pg">143</span></li>
+  </ul>
+
+  <div class="part-label">Part VI — Beyond the Basics</div>
+  <ul>
+    <li><a href="#ch19">19. Virtual Environments and pip</a><span class="pg">151</span></li>
+    <li><a href="#ch20">20. Iterators, Generators, and Decorators</a><span class="pg">157</span></li>
+    <li><a href="#ch21">21. Testing Your Code</a><span class="pg">165</span></li>
+    <li><a href="#ch22">22. Choosing Your Direction</a><span class="pg">171</span></li>
+  </ul>
+
+  <div class="part-label">Part VII — The Practice</div>
+  <ul>
+    <li><a href="#ch23">23. How to Practice</a><span class="pg">177</span></li>
+    <li><a href="#ch24">24. Common Pitfalls</a><span class="pg">183</span></li>
+    <li><a href="#ch25">25. A Realistic Timeline</a><span class="pg">187</span></li>
+    <li><a href="#ch26">26. Your First Step Today</a><span class="pg">191</span></li>
+  </ul>
+
+  <div class="part-label">Appendices</div>
+  <ul>
+    <li><a href="#appA">Appendix A: Quick Reference Cheat Sheet</a><span class="pg">195</span></li>
+    <li><a href="#appB">Appendix B: Project Ideas by Level</a><span class="pg">201</span></li>
+    <li><a href="#appC">Appendix C: Glossary</a><span class="pg">205</span></li>
+  </ul>
+</div>
+
+<!-- ============ PREFACE ============ -->
+<section class="chapter" id="preface">
+  <div class="chap-num">Front Matter</div>
+  <h1>Preface: How to Use This Book</h1>
+
+  <p class="dropcap">Python is not learned by reading. It is learned by writing. You can read every page of this book and still not know Python if you never open an editor, make mistakes, and fix them. That is the uncomfortable truth most beginner guides avoid.</p>
+
+  <p>This book is a map, not the territory. It gives you the order, the milestones, and the warnings. But the walking is yours. Every chapter ends with an exercise. Do them. Do not skip them because they look easy. Do not skip them because you "already understand." Understanding without doing is an illusion.</p>
+
+  <p>Use this book like this: read a chapter, then write a small program using what you learned. When you finish a part, return to earlier programs and improve them. Learning to code is less like climbing a staircase and more like building a city — you revisit old neighborhoods with new tools.</p>
+
+  <blockquote>"The best way to learn Python is to write Python."</blockquote>
+
+  <p>There is no shortcut. There is no video you can watch that will make you a programmer. There is only the work. This book will make the work clearer.</p>
+</section>
+
+<!-- ============ PART I ============ -->
+<div class="part">
+  <div class="part-num">Part One</div>
+  <h1>Getting Ready</h1>
+  <p class="part-desc">What Python is, where it runs, and how to set up a workspace where you can experiment without fear.</p>
+</div>
+
+<!-- CHAPTER 1 -->
+<section class="chapter" id="ch1">
+  <div class="chap-num">Chapter One</div>
+  <h1>What Python Is and Why It Matters</h1>
+
+  <p class="epigraph">"Python is executable pseudocode. It reads like English, but it runs like a machine."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>What Python is and what it is used for</li>
+      <li>Where Python runs</li>
+      <li>Why it is worth learning</li>
+      <li>What makes it different from other languages</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">Python is a general-purpose programming language created by Guido van Rossum in 1991. It was designed to be readable, and it succeeded. Python code looks close to English. Where other languages use symbols and punctuation, Python uses indentation and words. This is why it is the most common first language taught in universities, and why it is used everywhere from web servers to scientific research to artificial intelligence.</p>
+
+  <p>You may not realize how much Python you already use. Instagram, Spotify, Dropbox, and Reddit run on Python. YouTube uses it for video processing. NASA uses it for scientific work. Google uses it in many internal tools. OpenAI's models are trained with Python. If you want to work in data, machine learning, automation, scripting, or backend development, Python is the language to know.</p>
+
+  <h2>Why Python and Not Something Else</h2>
+
+  <p>Every language has a personality. Python's personality is clarity. It was designed to make the simple things easy and the complex things possible. It removes the noise so you can focus on the problem.</p>
+
+  <p>Compare the same task in Python and in a lower-level language. In Python, you write <code>print("hello")</code>. In C, you write six lines and include a header. This difference matters for a beginner. Every line you do not have to write is a line you do not have to debug.</p>
+
+  <p>Python is also versatile. The same language that powers a data analysis script can power a web server, a game, a desktop application, or an artificial intelligence model. You do not have to switch languages to switch projects.</p>
+
+  <h2>What Python Is Not</h2>
+
+  <p>Python is not the fastest language in the world. For most tasks, it is fast enough. For the most demanding tasks — game engines, high-frequency trading, operating systems — other languages are better. But Python often connects to those languages: it calls C libraries for the heavy work while keeping the readable code in Python.</p>
+
+  <p>Python is also not a single program. There are many versions, many distributions, and many ways to install it. This can be confusing at first. We will sort it out in the next chapter.</p>
+
+  <h2>How Python Is Used</h2>
+
+  <table>
+    <thead><tr><th>Field</th><th>Common tools</th></tr></thead>
+    <tbody>
+      <tr><td>Web development</td><td>Django, Flask, FastAPI</td></tr>
+      <tr><td>Data analysis</td><td>pandas, NumPy, Jupyter</td></tr>
+      <tr><td>Machine learning</td><td>PyTorch, TensorFlow, scikit-learn</td></tr>
+      <tr><td>Automation and scripting</td><td>Standard library, requests, Selenium</td></tr>
+      <tr><td>Scientific computing</td><td>SciPy, SymPy, Matplotlib</td></tr>
+      <tr><td>Desktop applications</td><td>Tkinter, PyQt, Kivy</td></tr>
+      <tr><td>Game development</td><td>Pygame</td></tr>
+    </tbody>
+  </table>
+
+  <p>You do not need to choose a field yet. Learn the language first. The field can wait.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Python is a readable, general-purpose language.</li>
+      <li>It is used in web, data, AI, automation, and science.</li>
+      <li>It is fast enough for most tasks and easy to learn.</li>
+      <li>The same language works across many domains.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 1.1</h4>
+    <ol>
+      <li>Write a list of three programs or websites you use that might be built with Python.</li>
+      <li>Look up one of them and see if the company has written about its tech stack.</li>
+      <li>Write one sentence about why a readable language is useful.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- CHAPTER 2 -->
+<section class="chapter" id="ch2">
+  <div class="chap-num">Chapter Two</div>
+  <h1>Setting Up Your Workshop</h1>
+
+  <p class="epigraph">"Give me six hours to chop down a tree and I will spend the first four sharpening the axe." — Abraham Lincoln</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>Installing Python</li>
+      <li>Choosing an editor</li>
+      <li>Running your first program</li>
+      <li>Using the REPL for experiments</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">You do not need expensive software. You need two things: a Python installation and a code editor. Everything else is optional.</p>
+
+  <h2>Installing Python</h2>
+
+  <p>Go to <strong>python.org</strong> and download the latest stable version for your operating system. On Windows, during installation, check the box that says <strong>"Add Python to PATH."</strong> This is important. If you skip it, the <code>python</code> command will not work in your terminal.</p>
+
+  <p>On macOS, Python 3 is usually preinstalled, but it is often an older version. Install the latest from python.org anyway. On Linux, Python 3 is preinstalled on almost every distribution, but you may want a newer version.</p>
+
+  <p>To check your installation, open a terminal and type:</p>
+
+  <pre><code>python --version</code></pre>
+
+  <p>You should see something like <code>Python 3.12.1</code>. If you see Python 2, your system is using an old version. Try <code>python3</code> instead. Python 2 is dead; use Python 3.</p>
+
+  <h2>Choosing an Editor</h2>
+
+  <p>Use <strong>Visual Studio Code</strong>. It is free, fast, and has excellent Python support. Install the official Python extension from Microsoft. This gives you syntax highlighting, autocompletion, and debugging.</p>
+
+  <p>Other fine editors include PyCharm (great for large projects), Sublime Text, and even a plain text editor. The editor matters less than you think. What matters is that you can write code and run it easily.</p>
+
+  <h2>Your First Program</h2>
+
+  <p>Create a folder called <code>python-practice</code>. Inside it, create a file called <code>hello.py</code>. Write this:</p>
+
+  <pre><code>print("Hello, Python!")</code></pre>
+
+  <p>In your terminal, navigate to the folder and run:</p>
+
+  <pre><code>python hello.py</code></pre>
+
+  <p>You should see the message printed. If you do, your workshop is ready.</p>
+
+  <h2>The REPL</h2>
+
+  <p>Python ships with a REPL — a Read-Eval-Print Loop. Type <code>python</code> with no file name and you enter an interactive session:</p>
+
+  <pre><code>&gt;&gt;&gt; 2 + 2
+4
+&gt;&gt;&gt; "hello".upper()
+'HELLO'
+&gt;&gt;&gt; [x * 2 for x in range(3)]
+[0, 2, 4]</code></pre>
+
+  <p>The REPL is perfect for quick experiments. Use it when you want to test a single line or check how something works. Exit with <code>exit()</code> or Ctrl+D.</p>
+
+  <h2>Running Python Files</h2>
+
+  <p>To run a file, use <code>python filename.py</code>. To pass arguments, add them after the file name. Your script can read them with <code>sys.argv</code>:</p>
+
+  <pre><code>import sys
+print(sys.argv)</code></pre>
+
+  <p>Later, you will learn about virtual environments and other ways to organize projects. For now, keep it simple.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Install the latest Python 3 from python.org.</li>
+      <li>Add Python to PATH on Windows.</li>
+      <li>Use VS Code with the Python extension.</li>
+      <li>The REPL is your best tool for quick experiments.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 2.1</h4>
+    <ol>
+      <li>Install Python 3 and confirm the version in your terminal.</li>
+      <li>Create <code>hello.py</code> and run it.</li>
+      <li>Change the message and run it again.</li>
+      <li>Open the REPL and try <code>print("hi")</code> followed by <code>2 ** 10</code>.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ PART II ============ -->
+<div class="part">
+  <div class="part-num">Part Two</div>
+  <h1>The Language</h1>
+  <p class="part-desc">The building blocks: values, operators, control flow, functions, and the core data structures.</p>
+</div>
+
+<!-- CHAPTER 3 -->
+<section class="chapter" id="ch3">
+  <div class="chap-num">Chapter Three</div>
+  <h1>Variables and Values</h1>
+
+  <p class="epigraph">"A variable is a name for a value. What you put inside is up to you."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>How to create variables in Python</li>
+      <li>Dynamic typing</li>
+      <li>Strings, numbers, and booleans</li>
+      <li>Naming conventions</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">A variable is a name for a value. You create one by assigning a value to a name. That is all. Every program you write will use variables to remember things: a user's name, a score, whether a checkbox is checked.</p>
+
+  <h2>Creating Variables</h2>
+
+  <p>In Python, you do not declare a variable. You just assign to it:</p>
+
+  <pre><code>score = 0
+name = "Ada"
+is_active = True</code></pre>
+
+  <p>There is no <code>let</code>, <code>const</code>, or <code>var</code>. You write the name, an equals sign, and a value. Python figures out the type from the value. This is called <em>dynamic typing</em>.</p>
+
+  <h2>Dynamic Typing</h2>
+
+  <p>Variables in Python do not have a fixed type. The name can be reassigned to a value of any type:</p>
+
+  <pre><code>x = 5
+x = "hello"
+x = [1, 2, 3]</code></pre>
+
+  <p>This is flexible, but it means Python will not catch type errors until the code runs. Use descriptive names and read your code carefully.</p>
+
+  <h2>Primitive Types</h2>
+
+  <p>Python has a small set of built-in types. The ones you will use constantly are:</p>
+
+  <table>
+    <thead><tr><th>Type</th><th>Example</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td><code>int</code></td><td><code>42</code></td><td>Whole numbers</td></tr>
+      <tr><td><code>float</code></td><td><code>3.14</code></td><td>Decimal numbers</td></tr>
+      <tr><td><code>str</code></td><td><code>"hello"</code></td><td>Text</td></tr>
+      <tr><td><code>bool</code></td><td><code>True</code>, <code>False</code></td><td>Yes/no values</td></tr>
+      <tr><td><code>NoneType</code></td><td><code>None</code></td><td>Absence of value</td></tr>
+    </tbody>
+  </table>
+
+  <p>Notice that <code>True</code> and <code>False</code> are capitalized. Python is case-sensitive. <code>true</code> is not the same as <code>True</code>.</p>
+
+  <p>You can check the type of any value with <code>type()</code>:</p>
+
+  <pre><code>type("hello")   # &lt;class 'str'&gt;
+type(42)        # &lt;class 'int'&gt;
+type(3.14)      # &lt;class 'float'&gt;
+type(True)      # &lt;class 'bool'&gt;
+type(None)      # &lt;class 'NoneType'&gt;</code></pre>
+
+  <h2>Strings</h2>
+
+  <p>Strings hold text. You can use single quotes or double quotes — they are equivalent. Triple quotes let you write multi-line strings:</p>
+
+  <pre><code>first = "Ada"
+last = 'Lovelace'
+full = f"{first} {last}"   # "Ada Lovelace"
+
+message = """
+This is
+a multi-line
+string.
+"""</code></pre>
+
+  <p>The <code>f</code> before the string makes it an <em>f-string</em>. Inside the braces, you can put any expression:</p>
+
+  <pre><code>name = "Ada"
+age = 36
+print(f"{name} is {age} years old.")</code></pre>
+
+  <p>F-strings are the modern way to build strings. Use them.</p>
+
+  <h2>Numbers</h2>
+
+  <p>Python has two number types: <code>int</code> and <code>float</code>. Arithmetic works as you would expect:</p>
+
+  <pre><code>10 + 3    # 13
+10 / 3    # 3.3333333333333335
+10 // 3   # 3   (floor division)
+10 % 3    # 1   (remainder)
+2 ** 8    # 256 (exponent)</code></pre>
+
+  <p>Note that <code>/</code> always returns a float, even when the result is a whole number. Use <code>//</code> when you want an integer result.</p>
+
+  <h2>Booleans</h2>
+
+  <p>A boolean is either <code>True</code> or <code>False</code>. Booleans come from comparisons and logic, which we will cover in the next chapter.</p>
+
+  <h2>Naming Variables</h2>
+
+  <p>Python convention is <em>snake_case</em>: all lowercase, words separated by underscores. <code>user_score</code> is better than <code>userScore</code>. <code>is_logged_in</code> is better than <code>flag</code>. Use descriptive names. They will save you more time than any other habit.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Python uses dynamic typing — no declarations needed.</li>
+      <li>Use f-strings to build strings from variables.</li>
+      <li><code>True</code> and <code>False</code> are capitalized.</li>
+      <li>Use snake_case for variable names.</li>
+      <li>Prefer descriptive names over short ones.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 3.1</h4>
+    <ol>
+      <li>Create variables for your name and age.</li>
+      <li>Print a sentence using an f-string.</li>
+      <li>Change the age and print again.</li>
+      <li>Use <code>type()</code> on each variable and print the results.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- CHAPTER 4 -->
+<section class="chapter" id="ch4">
+  <div class="chap-num">Chapter Four</div>
+  <h1>Operators and Logic</h1>
+
+  <p class="epigraph">"Programs are decisions written in arithmetic."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>Arithmetic operators</li>
+      <li>Comparison operators</li>
+      <li>Logical operators: <code>and</code>, <code>or</code>, <code>not</code></li>
+      <li>Truthy and falsy values</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">Every decision your program makes comes down to a comparison. Is the score higher than ten? Is the user logged in? Is the password correct? Operators are how you ask those questions.</p>
+
+  <h2>Arithmetic Operators</h2>
+
+  <pre><code>5 + 2    # 7
+5 - 2    # 3
+5 * 2    # 10
+5 / 2    # 2.5
+5 // 2   # 2   (floor division)
+5 % 2    # 1   (remainder)
+5 ** 2   # 25  (exponent)</code></pre>
+
+  <p>The floor division <code>//</code> and remainder <code>%</code> operators are useful more often than beginners expect. Use <code>%</code> to test whether a number is even, or to wrap values into a range. Use <code>//</code> when you want a whole-number result.</p>
+
+  <h2>Comparison Operators</h2>
+
+  <table>
+    <thead><tr><th>Operator</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>==</code></td><td>Equal to</td></tr>
+      <tr><td><code>!=</code></td><td>Not equal to</td></tr>
+      <tr><td><code>&gt;</code></td><td>Greater than</td></tr>
+      <tr><td><code>&lt;</code></td><td>Less than</td></tr>
+      <tr><td><code>&gt;=</code></td><td>Greater than or equal</td></tr>
+      <tr><td><code>&lt;=</code></td><td>Less than or equal</td></tr>
+    </tbody>
+  </table>
+
+  <p>Python compares values intelligently. Strings compare alphabetically. Numbers compare numerically. Lists compare element by element.</p>
+
+  <pre><code>"apple" &lt; "banana"   # True
+[1, 2, 3] &lt; [1, 2, 4] # True
+5 == 5.0              # True (int and float compare by value)</code></pre>
+
+  <h2>Logical Operators</h2>
+
+  <p>Python uses words instead of symbols:</p>
+
+  <pre><code>True and True    # True
+True and False   # False
+True or False    # True
+not True         # False</code></pre>
+
+  <p>Use these to combine conditions:</p>
+
+  <pre><code>age = 20
+has_license = True
+
+if age &gt;= 18 and has_license:
+    print("You can drive.")</code></pre>
+
+  <h2>Truthy and Falsy</h2>
+
+  <p>Every value in Python is either "truthy" or "falsy." The falsy values are:</p>
+
+  <ul>
+    <li><code>False</code></li>
+    <li><code>None</code></li>
+    <li><code>0</code>, <code>0.0</code></li>
+    <li><code>""</code> (empty string)</li>
+    <li><code>[]</code>, <code>()</code>, <code>{}</code> (empty collections)</li>
+  </ul>
+
+  <p>Everything else is truthy. This matters because <code>if value:</code> is shorthand for "if value is truthy":</p>
+
+  <pre><code>name = ""
+if name:
+    print(f"Hello, {name}")
+else:
+    print("Name is empty.")</code></pre>
+
+  <h2>Chained Comparisons</h2>
+
+  <p>Python lets you chain comparisons naturally:</p>
+
+  <pre><code>age = 25
+if 18 &lt;= age &lt; 65:
+    print("Working age.")</code></pre>
+
+  <p>This reads like math and is one of Python's small pleasures.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Use <code>//</code> for integer division and <code>%</code> for remainder.</li>
+      <li>Logical operators are <code>and</code>, <code>or</code>, <code>not</code> — words, not symbols.</li>
+      <li>Know the falsy values.</li>
+      <li>Chained comparisons read naturally.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 4.1</h4>
+    <ol>
+      <li>Write a condition that checks if a number is even.</li>
+      <li>Write a condition that checks if a string is non-empty.</li>
+      <li>Write a condition that checks if a user is both logged in and an admin.</li>
+      <li>Use a chained comparison to check if a number is between 1 and 100.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- CHAPTER 5 -->
+<section class="chapter" id="ch5">
+  <div class="chap-num">Chapter Five</div>
+  <h1>Control Flow</h1>
+
+  <p class="epigraph">"A program without conditions is a straight line with no exits."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li><code>if</code>, <code>elif</code>, and <code>else</code></li>
+      <li>The ternary expression</li>
+      <li><code>for</code> loops</li>
+      <li><code>while</code> loops</li>
+      <li><code>break</code> and <code>continue</code></li>
+    </ul>
+  </div>
+
+  <p class="dropcap">Control flow is how your program decides what to do. Without it, code runs from top to bottom and stops. With it, code can branch, repeat, and skip.</p>
+
+  <h2>if / elif / else</h2>
+
+  <p>Python uses indentation to define blocks. There are no curly braces. The colon at the end of the condition starts the block:</p>
+
+  <pre><code>score = 85
+
+if score &gt;= 90:
+    print("A")
+elif score &gt;= 80:
+    print("B")
+elif score &gt;= 70:
+    print("C")
+else:
+    print("F")</code></pre>
+
+  <p>Use four spaces for indentation. Not two, not a tab. Be consistent. Python will raise an error if you mix them.</p>
+
+  <h2>The Ternary Expression</h2>
+
+  <p>When you need a value based on a condition, use a conditional expression:</p>
+
+  <pre><code>age = 20
+label = "adult" if age &gt;= 18 else "minor"</code></pre>
+
+  <p>It reads: "adult if age is at least 18, otherwise minor." Use it for simple choices. For complex logic, use <code>if</code>.</p>
+
+  <h2>for Loops</h2>
+
+  <p>Python's <code>for</code> loop iterates over items, not counters. This is one of the features that makes Python feel natural:</p>
+
+  <pre><code>fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)</code></pre>
+
+  <p>Use <code>range()</code> when you need a sequence of numbers:</p>
+
+  <pre><code>for i in range(5):
+    print(i)  # 0 1 2 3 4
+
+for i in range(1, 6):
+    print(i)  # 1 2 3 4 5
+
+for i in range(0, 10, 2):
+    print(i)  # 0 2 4 6 8</code></pre>
+
+  <h2>while Loops</h2>
+
+  <p>Use <code>while</code> when the number of repetitions is unknown:</p>
+
+  <pre><code>count = 0
+while count &lt; 5:
+    print(count)
+    count += 1</code></pre>
+
+  <p>Be careful. If the condition never becomes false, the loop runs forever and your program hangs. Press Ctrl+C to interrupt a runaway loop.</p>
+
+  <h2>break and continue</h2>
+
+  <p>Use <code>break</code> to exit a loop, and <code>continue</code> to skip to the next iteration:</p>
+
+  <pre><code>for n in [1, 2, 3, 4, 5]:
+    if n == 3:
+        break
+    print(n)  # 1 2
+
+for n in [1, 2, 3, 4, 5]:
+    if n % 2 == 0:
+        continue
+    print(n)  # 1 3 5</code></pre>
+
+  <h2>Looping with Indexes</h2>
+
+  <p>When you need both the index and the value, use <code>enumerate()</code>:</p>
+
+  <pre><code>fruits = ["apple", "banana", "cherry"]
+for i, fruit in enumerate(fruits):
+    print(i, fruit)</code></pre>
+
+  <p>When you need to iterate over two lists at once, use <code>zip()</code>:</p>
+
+  <pre><code>names = ["Ada", "Alan"]
+ages = [36, 41]
+for name, age in zip(names, ages):
+    print(f"{name} is {age}")</code></pre>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Use <code>if/elif/else</code> for branching.</li>
+      <li>Python's <code>for</code> iterates over items, not counters.</li>
+      <li>Use <code>range()</code> for number sequences.</li>
+      <li><code>enumerate()</code> and <code>zip()</code> handle common loop needs.</li>
+      <li>Indentation matters. Use four spaces.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 5.1</h4>
+    <ol>
+      <li>Write a loop that prints the numbers 1 through 10.</li>
+      <li>Write a loop that prints only even numbers from 1 to 20.</li>
+      <li>Write a function that takes a score and returns a letter grade.</li>
+      <li>Use <code>enumerate()</code> to print a numbered list of fruits.</li>
+      <li>Use <code>zip()</code> to pair two lists and print them together.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- CHAPTER 6 -->
+<section class="chapter" id="ch6">
+  <div class="chap-num">Chapter Six</div>
+  <h1>Functions</h1>
+
+  <p class="epigraph">"A function is a named piece of behavior."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>Defining and calling functions</li>
+      <li>Parameters and return values</li>
+      <li>Default arguments and keyword arguments</li>
+      <li>Variable scope inside functions</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">A function is a block of code you can name and reuse. Every program larger than ten lines uses functions. They let you break a problem into pieces, name each piece, and test the pieces separately.</p>
+
+  <h2>Defining a Function</h2>
+
+  <pre><code>def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("Ada"))  # "Hello, Ada!"</code></pre>
+
+  <p>The word <code>name</code> inside the parentheses is a <em>parameter</em>. The value you pass when calling the function ("Ada") is an <em>argument</em>. The <code>return</code> statement sends a value back to the caller.</p>
+
+  <p>If a function does not have a <code>return</code>, it returns <code>None</code> by default.</p>
+
+  <h2>Default Arguments</h2>
+
+  <pre><code>def greet(name="friend"):
+    return f"Hello, {name}!"
+
+greet()        # "Hello, friend!"
+greet("Ada")   # "Hello, Ada!"</code></pre>
+
+  <p>Default arguments are evaluated once, when the function is defined. Do not use mutable defaults like lists or dictionaries unless you understand the consequences. Use <code>None</code> instead:</p>
+
+  <pre><code>def add_item(item, items=None):
+    if items is None:
+        items = []
+    items.append(item)
+    return items</code></pre>
+
+  <h2>Keyword Arguments</h2>
+
+  <p>When calling a function, you can name the arguments. This makes calls more readable and lets you skip optional parameters:</p>
+
+  <pre><code>def create_user(name, age, admin=False):
+    return {"name": name, "age": age, "admin": admin}
+
+create_user(name="Ada", age=36)
+create_user("Alan", 41, admin=True)</code></pre>
+
+  <h2>Arbitrary Arguments</h2>
+
+  <p>Use <code>*args</code> for any number of positional arguments, and <code>**kwargs</code> for any number of keyword arguments:</p>
+
+  <pre><code>def total(*numbers):
+    return sum(numbers)
+
+total(1, 2, 3, 4)  # 10
+
+def describe(**info):
+    for key, value in info.items():
+        print(f"{key}: {value}")
+
+describe(name="Ada", age=36)</code></pre>
+
+  <h2>Multiple Return Values</h2>
+
+  <p>Python functions can return multiple values as a tuple:</p>
+
+  <pre><code>def min_max(numbers):
+    return min(numbers), max(numbers)
+
+low, high = min_max([3, 1, 4, 1, 5, 9])
+print(low, high)  # 1 9</code></pre>
+
+  <h2>Docstrings</h2>
+
+  <p>Every function should have a short description called a docstring:</p>
+
+  <pre><code>def greet(name):
+    """Return a greeting for the given name."""
+    return f"Hello, {name}!"</code></pre>
+
+  <p>Docstrings are accessible with <code>help(greet)</code> or <code>greet.__doc__</code>. Write them for every function you intend to reuse.</p>
+
+  <h2>Lambda Functions</h2>
+
+  <p>A <code>lambda</code> is a small anonymous function. Use it when you need a quick function that you will not reuse:</p>
+
+  <pre><code>double = lambda x: x * 2
+double(5)  # 10
+
+# Most common use: sorting with a key
+words = ["banana", "apple", "cherry"]
+words.sort(key=lambda w: len(w))
+print(words)  # ['apple', 'banana', 'cherry']</code></pre>
+
+  <p>If a lambda gets complicated, replace it with a regular function and a name. Readability always wins.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Define functions with <code>def</code>, return with <code>return</code>.</li>
+      <li>Use default arguments for optional parameters.</li>
+      <li>Use <code>None</code> as a default instead of mutable objects.</li>
+      <li>Use <code>*args</code> and <code>**kwargs</code> for flexible signatures.</li>
+      <li>Write docstrings. They are part of your code.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 6.1</h4>
+    <ol>
+      <li>Write a function that takes two numbers and returns their sum.</li>
+      <li>Add a default argument so the second number defaults to 0.</li>
+      <li>Write a function that accepts any number of numbers and returns the largest.</li>
+      <li>Write a function that returns both the smallest and largest values of a list.</li>
+      <li>Use a lambda to sort a list of strings by length.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- CHAPTER 7 -->
+<section class="chapter" id="ch7">
+  <div class="chap-num">Chapter Seven</div>
+  <h1>Lists and Tuples</h1>
+
+  <p class="epigraph">"A list is a sequence. A tuple is a sequence that will not change."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>Creating and reading lists</li>
+      <li>Adding, removing, and slicing</li>
+      <li>When to use tuples</li>
+      <li>List methods you will use every day</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">A list is an ordered collection of values. Almost every real program works with lists: a list of users, a list of products, a list of messages. Lists are Python's most-used data structure. Learn them well.</p>
+
+  <h2>Creating Lists</h2>
+
+  <pre><code>fruits = ["apple", "banana", "cherry"]
+numbers = [1, 2, 3, 4, 5]
+mixed = ["hello", 42, True, None]
+empty = []</code></pre>
+
+  <h2>Reading and Writing</h2>
+
+  <pre><code>fruits[0]         # "apple"
+fruits[-1]        # "cherry" (last item)
+fruits[1]         # "banana"
+len(fruits)       # 3
+
+fruits[0] = "pear"  # ["pear", "banana", "cherry"]</code></pre>
+
+  <p>Negative indexes count from the end. <code>fruits[-1]</code> is the last item, <code>fruits[-2]</code> is the one before it, and so on.</p>
+
+  <h2>Slicing</h2>
+
+  <p>Slicing gives you a sublist. The syntax is <code>[start:end]</code>, where <code>end</code> is not included:</p>
+
+  <pre><code>nums = [0, 1, 2, 3, 4, 5]
+nums[1:4]     # [1, 2, 3]
+nums[:3]      # [0, 1, 2]
+nums[3:]      # [3, 4, 5]
+nums[::2]     # [0, 2, 4] (every other item)
+nums[::-1]    # [5, 4, 3, 2, 1] (reversed)</code></pre>
+
+  <p>Slicing creates a new list. The original is unchanged.</p>
+
+  <h2>Adding and Removing</h2>
+
+  <pre><code>nums = [1, 2, 3]
+
+nums.append(4)      # [1, 2, 3, 4]       add to end
+nums.insert(0, 0)   # [0, 1, 2, 3, 4]    insert at index
+nums.remove(2)      # [0, 1, 3, 4]       remove by value
+nums.pop()          # [0, 1, 3]          remove and return last
+nums.pop(0)         # [1, 3]             remove and return at index
+nums.clear()        # []                 remove everything</code></pre>
+
+  <h2>Common Methods</h2>
+
+  <table>
+    <thead><tr><th>Method</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>append(x)</code></td><td>Add x to the end</td></tr>
+      <tr><td><code>extend(iterable)</code></td><td>Add every item from another iterable</td></tr>
+      <tr><td><code>insert(i, x)</code></td><td>Insert x at index i</td></tr>
+      <tr><td><code>remove(x)</code></td><td>Remove the first occurrence of x</td></tr>
+      <tr><td><code>pop([i])</code></td><td>Remove and return item at index i</td></tr>
+      <tr><td><code>index(x)</code></td><td>Return index of first occurrence of x</td></tr>
+      <tr><td><code>count(x)</code></td><td>Count occurrences of x</td></tr>
+      <tr><td><code>sort()</code></td><td>Sort in place</td></tr>
+      <tr><td><code>reverse()</code></td><td>Reverse in place</td></tr>
+      <tr><td><code>copy()</code></td><td>Return a shallow copy</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Looping</h2>
+
+  <pre><code>for fruit in fruits:
+    print(fruit)
+
+for i, fruit in enumerate(fruits):
+    print(i, fruit)</code></pre>
+
+  <h2>Checking Membership</h2>
+
+  <pre><code>"apple" in fruits     # True
+"grape" in fruits     # False
+3 not in [1, 2, 4]    # True</code></pre>
+
+  <h2>Tuples</h2>
+
+  <p>A tuple is like a list, but it cannot be changed after creation. Tuples are written with parentheses:</p>
+
+  <pre><code>point = (3, 5)
+rgb = (255, 128, 0)
+single = (42,)   # note the trailing comma for a one-element tuple</code></pre>
+
+  <p>Use tuples when the data is fixed: coordinates, RGB values, or fixed pairs. Tuples are also faster than lists and can be used as dictionary keys (lists cannot).</p>
+
+  <h2>Unpacking</h2>
+
+  <p>You can unpack a list or tuple into individual variables:</p>
+
+  <pre><code>point = (3, 5)
+x, y = point
+print(x, y)  # 3 5
+
+first, *rest = [1, 2, 3, 4]
+print(first)  # 1
+print(rest)   # [2, 3, 4]</code></pre>
+
+  <p>The <code>*rest</code> syntax collects any remaining items into a list. This is useful when you want the first or last item and the rest.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Lists are ordered, mutable sequences.</li>
+      <li>Tuples are ordered, immutable sequences.</li>
+      <li>Slicing with <code>[start:end]</code> creates a new list.</li>
+      <li>Use <code>enumerate()</code> when you need the index.</li>
+      <li>Use tuples for fixed data.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 7.1</h4>
+    <ol>
+      <li>Create a list of five numbers. Print the first, last, and middle values.</li>
+      <li>Use slicing to print the first three and last three items.</li>
+      <li>Sort the list in reverse order.</li>
+      <li>Use a tuple to store a point and unpack it into x and y.</li>
+      <li>Use <code>enumerate()</code> to print a numbered list of the items.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- CHAPTER 8 -->
+<section class="chapter" id="ch8">
+  <div class="chap-num">Chapter Eight</div>
+  <h1>Dictionaries and Sets</h1>
+
+  <p class="epigraph">"A dictionary is a collection of named values. A set is a collection of unique values."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>Creating and reading dictionaries</li>
+      <li>Adding, updating, and removing keys</li>
+      <li>Looping through dictionaries</li>
+      <li>Sets and when to use them</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">A dictionary is a collection of key-value pairs. Where lists are ordered by index, dictionaries are ordered by key. If you want to describe a person, you do not use a list of values; you use a dictionary with named properties.</p>
+
+  <h2>Creating Dictionaries</h2>
+
+  <pre><code>user = {
+    "name": "Ada",
+    "age": 36,
+    "is_admin": True,
+}
+
+empty = {}
+also_empty = dict()</code></pre>
+
+  <h2>Reading and Writing</h2>
+
+  <pre><code>user["name"]              # "Ada"
+user["age"] = 37          # update
+user["email"] = "ada@example.com"  # add new key
+
+user.get("name")          # "Ada"
+user.get("phone")         # None (no error)
+user.get("phone", "n/a")  # "n/a" (default)</code></pre>
+
+  <p>Use <code>.get()</code> when the key might not exist. Accessing a missing key with <code>[]</code> raises a <code>KeyError</code>.</p>
+
+  <h2>Checking for Keys</h2>
+
+  <pre><code>"name" in user    # True
+"phone" in user   # False</code></pre>
+
+  <h2>Removing Keys</h2>
+
+  <pre><code>del user["age"]
+user.pop("email", None)   # remove safely, return None if missing
+user.clear()              # remove everything</code></pre>
+
+  <h2>Looping</h2>
+
+  <pre><code>for key in user:
+    print(key)
+
+for value in user.values():
+    print(value)
+
+for key, value in user.items():
+    print(key, value)</code></pre>
+
+  <p>Use <code>.items()</code> when you need both the key and the value. It is the most common pattern.</p>
+
+  <h2>Nested Data</h2>
+
+  <p>Dictionaries can contain lists, other dictionaries, or anything else. Real data often looks like a list of dictionaries:</p>
+
+  <pre><code>users = [
+    {"name": "Ada", "age": 36},
+    {"name": "Alan", "age": 41},
+    {"name": "Grace", "age": 45},
+]
+
+for user in users:
+    print(user["name"])
+
+names = [user["name"] for user in users]
+print(names)  # ["Ada", "Alan", "Grace"]</code></pre>
+
+  <h2>Sets</h2>
+
+  <p>A set is an unordered collection of unique values. Sets are written with curly braces, but without key-value pairs:</p>
+
+  <pre><code>colors = {"red", "green", "blue"}
+numbers = {1, 2, 3, 3, 3}   # {1, 2, 3} — duplicates removed
+empty = set()               # note: {} creates an empty dict, not a set</code></pre>
+
+  <p>Use sets to remove duplicates from a list:</p>
+
+  <pre><code>nums = [1, 2, 2, 3, 3, 3]
+unique = list(set(nums))    # [1, 2, 3]</code></pre>
+
+  <p>Use sets for fast membership tests:</p>
+
+  <pre><code>allowed = {"admin", "editor"}
+if "admin" in allowed:
+    print("Welcome")</code></pre>
+
+  <h2>Set Operations</h2>
+
+  <pre><code>a = {1, 2, 3}
+b = {3, 4, 5}
+
+a | b    # {1, 2, 3, 4, 5}  union
+a &amp; b    # {3}              intersection
+a - b    # {1, 2}           difference
+a ^ b    # {1, 2, 4, 5}     symmetric difference</code></pre>
+
+  <p>Set operations are useful for comparing lists: which items do two lists share? Which items are in one but not the other?</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Dictionaries store key-value pairs.</li>
+      <li>Use <code>.get()</code> instead of <code>[]</code> when the key might be missing.</li>
+      <li>Use <code>.items()</code> to loop with both key and value.</li>
+      <li>Sets store unique values and are fast for membership tests.</li>
+      <li>Real data often looks like a list of dictionaries.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 8.1</h4>
+    <ol>
+      <li>Create a dictionary representing a book with title, author, and year.</li>
+      <li>Add a genre and print all keys, values, and items.</li>
+      <li>Use <code>.get()</code> to look up a missing key with a default value.</li>
+      <li>Create an array of three books and print all titles.</li>
+      <li>Use a set to find the unique values in a list of repeated items.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- CHAPTER 9 -->
+<section class="chapter" id="ch9">
+  <div class="chap-num">Chapter Nine</div>
+  <h1>Strings and Text</h1>
+
+  <p class="epigraph">"Most of programming is moving text from one place to another."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>String methods</li>
+      <li>Formatting with f-strings</li>
+      <li>Splitting and joining</li>
+      <li>Working with multi-line text</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">Strings are sequences of characters, and Python treats them almost like lists. You can index them, slice them, and loop over them. You can also call a rich set of methods on them. Most real programs spend a lot of time working with strings.</p>
+
+  <h2>Indexing and Slicing</h2>
+
+  <pre><code>text = "Python"
+text[0]      # "P"
+text[-1]     # "n"
+text[1:4]    # "yth"
+text[::-1]   # "nohtyP"</code></pre>
+
+  <p>Strings are immutable. You cannot change a character in place. You must create a new string.</p>
+
+  <h2>Common Methods</h2>
+
+  <table>
+    <thead><tr><th>Method</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>.upper()</code></td><td>Uppercase</td></tr>
+      <tr><td><code>.lower()</code></td><td>Lowercase</td></tr>
+      <tr><td><code>.strip()</code></td><td>Remove surrounding whitespace</td></tr>
+      <tr><td><code>.replace(a, b)</code></td><td>Replace all a with b</td></tr>
+      <tr><td><code>.split(sep)</code></td><td>Split into a list</td></tr>
+      <tr><td><code>.join(iterable)</code></td><td>Combine items into a string</td></tr>
+      <tr><td><code>.startswith(s)</code></td><td>Check prefix</td></tr>
+      <tr><td><code>.endswith(s)</code></td><td>Check suffix</td></tr>
+      <tr><td><code>.find(s)</code></td><td>Index of first occurrence, or -1</td></tr>
+      <tr><td><code>.count(s)</code></td><td>Count occurrences</td></tr>
+    </tbody>
+  </table>
+
+  <h2>F-Strings</h2>
+
+  <p>F-strings are the modern way to build formatted strings:</p>
+
+  <pre><code>name = "Ada"
+age = 36
+
+print(f"{name} is {age} years old.")
+print(f"Next year, {name} will be {age + 1}.")
+
+# Formatting numbers
+pi = 3.14159265
+print(f"Pi is approximately {pi:.2f}")   # 3.14
+
+# Padding and alignment
+print(f"{name:&gt;10}")   # "       Ada"
+print(f"{name:&lt;10}")   # "Ada       "
+print(f"{name:^10}")   # "   Ada    "</code></pre>
+
+  <h2>Splitting and Joining</h2>
+
+  <pre><code>sentence = "the quick brown fox"
+words = sentence.split()          # ["the", "quick", "brown", "fox"]
+parts = sentence.split(" ")       # same
+
+rejoined = " ".join(words)        # "the quick brown fox"
+comma = ", ".join(words)          # "the, quick, brown, fox"</code></pre>
+
+  <h2>Membership and Search</h2>
+
+  <pre><code>"quick" in sentence        # True
+"slow" not in sentence     # True
+sentence.startswith("the") # True
+sentence.endswith("fox")   # True</code></pre>
+
+  <h2>Multi-line Strings</h2>
+
+  <p>Triple quotes let you write strings that span multiple lines:</p>
+
+  <pre><code>letter = """Dear Ada,
+
+Thank you for your work on the engine.
+We look forward to reading your notes.
+
+Sincerely,
+Charles
+"""</code></pre>
+
+  <p>The whitespace inside the triple quotes is preserved. This is useful for templates, documents, and any text where line breaks matter.</p>
+
+  <h2>Raw Strings</h2>
+
+  <p>Prefix a string with <code>r</code> to disable escape sequences. This is useful for file paths and regular expressions:</p>
+
+  <pre><code>path = r"C:\Users\Ada\Documents"</code></pre>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Strings are immutable sequences of characters.</li>
+      <li>Use f-strings for formatting.</li>
+      <li>Use <code>.split()</code> and <code>.join()</code> for text manipulation.</li>
+      <li>Use triple quotes for multi-line strings.</li>
+      <li>Use raw strings for paths and regex patterns.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 9.1</h4>
+    <ol>
+      <li>Write a function that takes a sentence and returns the number of words.</li>
+      <li>Write a function that reverses a string.</li>
+      <li>Format a table of numbers with aligned columns using f-strings.</li>
+      <li>Split a comma-separated string into a list and rejoin it with dashes.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ PART III ============ -->
+<div class="part">
+  <div class="part-num">Part Three</div>
+  <h1>How Python Really Works</h1>
+  <p class="part-desc">Scope, references, mutability, and the small set of rules that explain why Python behaves the way it does.</p>
+</div>
+
+<!-- CHAPTER 10 -->
+<section class="chapter" id="ch10">
+  <div class="chap-num">Chapter Ten</div>
+  <h1>Scope and Namespaces</h1>
+
+  <p class="epigraph">"Where a name lives determines what it can see."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>Local, enclosing, global, and built-in scopes</li>
+      <li>The <code>global</code> and <code>nonlocal</code> keywords</li>
+      <li>Why scoping matters in functions</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">These ideas separate programmers who guess from programmers who know. Read this chapter twice. The rules are simple, but the consequences are deep.</p>
+
+  <h2>The Four Scopes</h2>
+
+  <p>Python looks up names in four places, in order:</p>
+
+  <ol>
+    <li><strong>Local</strong> — names inside the current function</li>
+    <li><strong>Enclosing</strong> — names in an outer function</li>
+    <li><strong>Global</strong> — names at the top level of the module</li>
+    <li><strong>Built-in</strong> — names Python provides, like <code>print</code> and <code>len</code></li>
+  </ol>
+
+  <p>This is often called the LEGB rule. When you use a name, Python searches Local, then Enclosing, then Global, then Built-in.</p>
+
+  <pre><code>x = "global"
+
+def outer():
+    x = "enclosing"
+    def inner():
+        x = "local"
+        print(x)   # "local"
+    inner()
+
+outer()</code></pre>
+
+  <h2>Modifying Globals</h2>
+
+  <p>If you assign to a name inside a function, Python treats it as local unless you say otherwise. To modify a global, use <code>global</code>:</p>
+
+  <pre><code>count = 0
+
+def increment():
+    global count
+    count += 1
+
+increment()
+print(count)  # 1</code></pre>
+
+  <p>Use <code>global</code> sparingly. Global state makes code hard to reason about. Prefer passing values as arguments and returning results.</p>
+
+  <h2>Enclosing Scope with nonlocal</h2>
+
+  <p>To modify a variable in an enclosing function, use <code>nonlocal</code>:</p>
+
+  <pre><code>def counter():
+    count = 0
+    def increment():
+        nonlocal count
+        count += 1
+        return count
+    return increment
+
+next_count = counter()
+print(next_count())  # 1
+print(next_count())  # 2
+print(next_count())  # 3</code></pre>
+
+  <p>This pattern is called a closure, and it is one of the most useful tools in Python.</p>
+
+  <h2>Why This Matters</h2>
+
+  <p>When a bug appears, "why is this variable not what I think it is?" is often a scope question. Knowing the rules saves hours. The fix is usually to rename a variable, pass a parameter, or restructure the code so the scope is obvious.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Python uses the LEGB rule for name lookup.</li>
+      <li>Assignments inside a function create local variables by default.</li>
+      <li>Use <code>global</code> sparingly.</li>
+      <li>Use <code>nonlocal</code> to modify enclosing variables.</li>
+      <li>Closures are built on enclosing scope.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 10.1</h4>
+    <ol>
+      <li>Write a function with a local variable and print it.</li>
+      <li>Try to read that variable outside the function and observe the error.</li>
+      <li>Write a <code>counter</code> function that returns a closure, as shown above.</li>
+      <li>Use the counter five times and print each result.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- CHAPTER 11 -->
+<section class="chapter" id="ch11">
+  <div class="chap-num">Chapter Eleven</div>
+  <h1>References and Mutability</h1>
+
+  <p class="epigraph">"Assignment binds a name to an object. It does not copy the object."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>The difference between names and objects</li>
+      <li>Mutable vs immutable types</li>
+      <li>How references cause surprising bugs</li>
+      <li>How to copy correctly</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">This chapter explains the most common source of beginner bugs in Python. Once you understand references and mutability, you will stop being surprised when your lists change unexpectedly.</p>
+
+  <h2>Names and Objects</h2>
+
+  <p>In Python, a variable is a name bound to an object. When you write <code>x = [1, 2, 3]</code>, you create a list object and bind the name <code>x</code> to it. The name is not the object. This distinction matters.</p>
+
+  <pre><code>a = [1, 2, 3]
+b = a
+b.append(4)
+
+print(a)   # [1, 2, 3, 4]
+print(b)   # [1, 2, 3, 4]</code></pre>
+
+  <p>Both <code>a</code> and <code>b</code> point to the same list. When you change it through one name, you see the change through the other. This is not a bug. It is how Python works.</p>
+
+  <h2>Mutable vs Immutable</h2>
+
+  <table>
+    <thead><tr><th>Immutable</th><th>Mutable</th></tr></thead>
+    <tbody>
+      <tr><td>int, float, bool</td><td>list</td></tr>
+      <tr><td>str</td><td>dict</td></tr>
+      <tr><td>tuple</td><td>set</td></tr>
+      <tr><td>frozenset</td><td>custom objects (usually)</td></tr>
+    </tbody>
+  </table>
+
+  <p>Immutable objects cannot be changed. When you "change" a string, you actually create a new string and rebind the name. Mutable objects can be changed in place, and every name that points to them sees the change.</p>
+
+  <h2>Copying Lists</h2>
+
+  <p>To create an independent copy of a list, use slicing or the <code>.copy()</code> method:</p>
+
+  <pre><code>a = [1, 2, 3]
+b = a.copy()      # or b = a[:]
+b.append(4)
+
+print(a)   # [1, 2, 3]
+print(b)   # [1, 2, 3, 4]</code></pre>
+
+  <p>These are shallow copies. If the list contains other mutable objects, those objects are still shared. For nested structures, use <code>copy.deepcopy()</code> from the <code>copy</code> module.</p>
+
+  <h2>Function Arguments</h2>
+
+  <p>When you pass a list to a function, the function receives a reference to the same list. If the function modifies it, the caller sees the change:</p>
+
+  <pre><code>def add_item(items, item):
+    items.append(item)
+
+my_list = [1, 2, 3]
+add_item(my_list, 4)
+print(my_list)  # [1, 2, 3, 4]</code></pre>
+
+  <p>This is sometimes useful and sometimes surprising. If you do not want the function to modify the caller's list, pass a copy or return a new list.</p>
+
+  <h2>The "Mutable Default Argument" Bug</h2>
+
+  <p>Default arguments are evaluated once, when the function is defined. This leads to a classic bug:</p>
+
+  <pre><code>def add_item(item, items=[]):
+    items.append(item)
+    return items
+
+add_item(1)   # [1]
+add_item(2)   # [1, 2] — surprising!
+add_item(3)   # [1, 2, 3]</code></pre>
+
+  <p>The same list is reused across calls. Always use <code>None</code> as a default for mutable arguments:</p>
+
+  <pre><code>def add_item(item, items=None):
+    if items is None:
+        items = []
+    items.append(item)
+    return items</code></pre>
+
+  <p>Memorize this pattern. It will save you from a bug that confuses even experienced developers.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Assignment binds a name to an object; it does not copy.</li>
+      <li>Mutable objects can be changed in place.</li>
+      <li>Use <code>.copy()</code> or slicing for a shallow copy.</li>
+      <li>Never use mutable default arguments — use <code>None</code>.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 11.1</h4>
+    <ol>
+      <li>Create a list, assign it to another name, modify through one, and observe the other.</li>
+      <li>Make a copy and verify that the original is unchanged.</li>
+      <li>Write a function that appends to a list and observe the caller's list.</li>
+      <li>Rewrite the function to return a new list instead.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- CHAPTER 12 -->
+<section class="chapter" id="ch12">
+  <div class="chap-num">Chapter Twelve</div>
+  <h1>Truthiness and the Zen of Python</h1>
+
+  <p class="epigraph">"Beautiful is better than ugly. Explicit is better than implicit." — The Zen of Python</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>Truthy and falsy values in detail</li>
+      <li>The <code>is</code> operator vs <code>==</code></li>
+      <li>The Zen of Python</li>
+      <li>Writing Pythonic code</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">Python has a philosophy, and it is written into the language itself. You can read it by typing <code>import this</code> in the REPL. This chapter is about that philosophy and the small details that flow from it.</p>
+
+  <h2>Truthiness Recap</h2>
+
+  <p>Falsy values: <code>False</code>, <code>None</code>, <code>0</code>, <code>0.0</code>, <code>""</code>, <code>[]</code>, <code>()</code>, <code>{}</code>, <code>set()</code>. Everything else is truthy.</p>
+
+  <p>This leads to Pythonic patterns:</p>
+
+  <pre><code>name = ""
+if name:
+    print(f"Hello, {name}")
+else:
+    print("No name given.")
+
+items = []
+if not items:
+    print("The list is empty.")</code></pre>
+
+  <p>Do not write <code>if len(items) == 0:</code>. Write <code>if not items:</code>. Do not write <code>if name != "":</code>. Write <code>if name:</code>. These are shorter and clearer once you are used to them.</p>
+
+  <h2>is vs ==</h2>
+
+  <p>Use <code>==</code> to compare values. Use <code>is</code> to compare identity — whether two names point to the same object.</p>
+
+  <pre><code>a = [1, 2, 3]
+b = [1, 2, 3]
+c = a
+
+a == b    # True (same values)
+a is b    # False (different objects)
+a is c    # True (same object)</code></pre>
+
+  <p>Use <code>is</code> mainly to compare with <code>None</code>:</p>
+
+  <pre><code>if value is None:
+    print("No value.")</code></pre>
+
+  <p>Never write <code>if value == None</code>. It works, but <code>is None</code> is the correct idiom and is faster.</p>
+
+  <h2>The Zen of Python</h2>
+
+  <p>Type <code>import this</code> in the REPL and you will see a list of principles. A few of the most important:</p>
+
+  <ul>
+    <li><strong>Beautiful is better than ugly.</strong> Write code you would be happy to read.</li>
+    <li><strong>Explicit is better than implicit.</strong> Do not rely on hidden magic.</li>
+    <li><strong>Simple is better than complex.</strong> When two solutions work, choose the simpler one.</li>
+    <li><strong>Readability counts.</strong> Always.</li>
+    <li><strong>Errors should never pass silently.</strong> Handle them, do not hide them.</li>
+    <li><strong>If the implementation is hard to explain, it is a bad idea.</strong> Clarity is a design principle.</li>
+  </ul>
+
+  <p>These are not just slogans. They guide the design of the language and of good code written in it. Learning to write Pythonic code is part of learning Python.</p>
+
+  <h2>Pythonic Patterns</h2>
+
+  <pre><code># Instead of:
+if x == True:
+    ...
+
+# Write:
+if x:
+    ...
+
+# Instead of:
+for i in range(len(items)):
+    print(items[i])
+
+# Write:
+for item in items:
+    print(item)
+
+# Instead of:
+if x != None:
+    ...
+
+# Write:
+if x is not None:
+    ...
+
+# Instead of:
+result = []
+for x in nums:
+    result.append(x * 2)
+
+# Write:
+result = [x * 2 for x in nums]</code></pre>
+
+  <p>These patterns are not rules. They are conventions that experienced Python programmers follow because they make code shorter, clearer, and easier to maintain.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Use truthiness instead of comparing to <code>True</code> or <code>False</code>.</li>
+      <li>Use <code>is</code> for identity, <code>==</code> for value.</li>
+      <li>Use <code>is None</code>, not <code>== None</code>.</li>
+      <li>The Zen of Python is real. Read it once a month.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 12.1</h4>
+    <ol>
+      <li>Type <code>import this</code> in the REPL and read the whole output.</li>
+      <li>Rewrite three of your earlier programs to be more Pythonic.</li>
+      <li>Replace <code>== True</code> and <code>== None</code> with the correct idioms in your code.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ PART IV ============ -->
+<div class="part">
+  <div class="part-num">Part Four</div>
+  <h1>Working with Data</h1>
+  <p class="part-desc">Comprehensions, files, JSON, and error handling — the tools that turn small programs into real ones.</p>
+</div>
+
+<!-- CHAPTER 13 -->
+<section class="chapter" id="ch13">
+  <div class="chap-num">Chapter Thirteen</div>
+  <h1>Comprehensions</h1>
+
+  <p class="epigraph">"A comprehension is a loop with a purpose."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>List comprehensions</li>
+      <li>Filtering with conditions</li>
+      <li>Dict and set comprehensions</li>
+      <li>When not to use them</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">A comprehension is a compact way to build a list, dictionary, or set from another iterable. It replaces the common pattern of creating an empty collection, looping, and appending. Comprehensions are one of the features that make Python feel pleasant.</p>
+
+  <h2>List Comprehensions</h2>
+
+  <pre><code>nums = [1, 2, 3, 4, 5]
+
+doubled = [n * 2 for n in nums]
+# [2, 4, 6, 8, 10]
+
+evens = [n for n in nums if n % 2 == 0]
+# [2, 4]
+
+squares = [n ** 2 for n in nums]
+# [1, 4, 9, 16, 25]</code></pre>
+
+  <p>The syntax is <code>[expression for item in iterable if condition]</code>. The condition is optional.</p>
+
+  <h2>Nested Comprehensions</h2>
+
+  <pre><code>matrix = [[1, 2], [3, 4], [5, 6]]
+
+flattened = [n for row in matrix for n in row]
+# [1, 2, 3, 4, 5, 6]</code></pre>
+
+  <p>Read nested comprehensions left to right, as if they were nested loops. If the result is hard to read, use a regular loop instead.</p>
+
+  <h2>Dictionary Comprehensions</h2>
+
+  <pre><code>names = ["Ada", "Alan", "Grace"]
+
+lengths = {name: len(name) for name in names}
+# {"Ada": 3, "Alan": 4, "Grace": 5}
+
+# Inverting a dictionary
+original = {"a": 1, "b": 2, "c": 3}
+inverted = {v: k for k, v in original.items()}
+# {1: "a", 2: "b", 3: "c"}</code></pre>
+
+  <h2>Set Comprehensions</h2>
+
+  <pre><code>words = ["apple", "banana", "apple", "cherry"]
+
+unique_lengths = {len(w) for w in words}
+# {5, 6}</code></pre>
+
+  <p>Set comprehensions remove duplicates automatically.</p>
+
+  <h2>Conditional Expressions Inside Comprehensions</h2>
+
+  <pre><code>nums = [1, 2, 3, 4, 5]
+
+labels = ["even" if n % 2 == 0 else "odd" for n in nums]
+# ["odd", "even", "odd", "even", "odd"]</code></pre>
+
+  <p>This is different from a filter. A filter removes items. A conditional expression transforms each item.</p>
+
+  <h2>When Not to Use Comprehensions</h2>
+
+  <p>Comprehensions are great for simple transformations. They are terrible for complex logic. If a comprehension does not fit on one or two lines, or if you have to squint to read it, use a regular loop. Readability always wins.</p>
+
+  <pre><code># Hard to read:
+result = [x if x % 2 == 0 else y * 2 for x, y in pairs if x &gt; 0 and y &lt; 10]
+
+# Better:
+result = []
+for x, y in pairs:
+    if x &gt; 0 and y &lt; 10:
+        result.append(x if x % 2 == 0 else y * 2)</code></pre>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Comprehensions replace loops that build collections.</li>
+      <li>Use them for simple transformations and filters.</li>
+      <li>Dict and set comprehensions use the same idea.</li>
+      <li>Use a regular loop when the logic is complex.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 13.1</h4>
+    <ol>
+      <li>Create a list of squares from 1 to 10 using a comprehension.</li>
+      <li>Create a list of only the even squares.</li>
+      <li>Create a dictionary mapping words to their lengths.</li>
+      <li>Create a set of unique first letters from a list of names.</li>
+      <li>Flatten a nested list using a comprehension.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- CHAPTER 14 -->
+<section class="chapter" id="ch14">
+  <div class="chap-num">Chapter Fourteen</div>
+  <h1>Files, JSON, and Paths</h1>
+
+  <p class="epigraph">"Programs without files forget everything when they close."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>Reading and writing files</li>
+      <li>The <code>with</code> statement</li>
+      <li>Working with JSON</li>
+      <li>Building paths with <code>pathlib</code></li>
+    </ul>
+  </div>
+
+  <p class="dropcap">Files are how programs remember things. Any program that saves data, loads configuration, or reads user input from disk needs file handling. Python makes this easy.</p>
+
+  <h2>Reading Files</h2>
+
+  <p>The modern way to open a file is with the <code>with</code> statement. It closes the file automatically, even if something goes wrong:</p>
+
+  <pre><code>with open("data.txt", "r", encoding="utf-8") as f:
+    content = f.read()
+
+print(content)</code></pre>
+
+  <p>The mode <code>"r"</code> means read. Other modes: <code>"w"</code> for write (overwrites), <code>"a"</code> for append, and <code>"rb"</code> or <code>"wb"</code> for binary.</p>
+
+  <h2>Reading Line by Line</h2>
+
+  <pre><code>with open("data.txt", "r", encoding="utf-8") as f:
+    for line in f:
+        print(line.rstrip())</code></pre>
+
+  <p>Use <code>.rstrip()</code> to remove the trailing newline. Each line from the file includes the <code>\n</code> character.</p>
+
+  <h2>Writing Files</h2>
+
+  <pre><code>with open("output.txt", "w", encoding="utf-8") as f:
+    f.write("Hello, file!\n")
+    f.write("Second line.\n")</code></pre>
+
+  <p>Opening a file with <code>"w"</code> erases any existing content. Use <code>"a"</code> to add to the end instead.</p>
+
+  <h2>JSON</h2>
+
+  <p>JSON is the standard format for structured data. Python's <code>json</code> module converts between Python objects and JSON text:</p>
+
+  <pre><code>import json
+
+data = {
+    "name": "Ada",
+    "age": 36,
+    "skills": ["math", "writing"],
+}
+
+# Write to file
+with open("user.json", "w", encoding="utf-8") as f:
+    json.dump(data, f, indent=2)
+
+# Read from file
+with open("user.json", "r", encoding="utf-8") as f:
+    loaded = json.load(f)
+
+print(loaded["name"])   # "Ada"
+print(loaded["skills"]) # ["math", "writing"]</code></pre>
+
+  <p>Use <code>json.dumps</code> and <code>json.loads</code> to convert to and from strings instead of files.</p>
+
+  <h2>Pathlib</h2>
+
+  <p>The <code>pathlib</code> module is the modern way to work with paths. It replaces the older <code>os.path</code> functions and is much nicer:</p>
+
+  <pre><code>from pathlib import Path
+
+# Current directory
+here = Path.cwd()
+
+# Build a path
+file = Path("data") / "users.json"
+
+# Check existence
+if file.exists():
+    print("Found!")
+
+# Create a directory
+Path("output").mkdir(exist_ok=True)
+
+# List files
+for path in Path(".").glob("*.py"):
+    print(path)</code></pre>
+
+  <p>Use <code>Path</code> for everything. It handles platform differences, joining paths, and reading directories cleanly.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Use <code>with open(...)</code> for file handling.</li>
+      <li>Modes: <code>"r"</code> read, <code>"w"</code> write, <code>"a"</code> append.</li>
+      <li>Use the <code>json</code> module for structured data.</li>
+      <li>Use <code>pathlib.Path</code> for paths.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 14.1</h4>
+    <ol>
+      <li>Create a text file with three lines and read it back.</li>
+      <li>Write a list of dictionaries to a JSON file.</li>
+      <li>Read the JSON file and print each item.</li>
+      <li>Use <code>pathlib</code> to list all <code>.py</code> files in your project folder.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- CHAPTER 15 -->
+<section class="chapter" id="ch15">
+  <div class="chap-num">Chapter Fifteen</div>
+  <h1>Errors and Exceptions</h1>
+
+  <p class="epigraph">"Errors are not failures. They are information."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>Reading error messages</li>
+      <li><code>try</code>, <code>except</code>, <code>finally</code></li>
+      <li>Raising exceptions</li>
+      <li>Custom exceptions</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">Every program has errors. The question is what happens when they occur. Ignoring errors leads to silent bugs. Handling them well is what separates beginner code from professional code.</p>
+
+  <h2>Reading Errors</h2>
+
+  <p>When Python hits a problem, it raises an exception. The traceback shows where the error happened and what type it was:</p>
+
+  <pre><code>Traceback (most recent call last):
+  File "app.py", line 3, in &lt;module&gt;
+    print(10 / 0)
+ZeroDivisionError: division by zero</code></pre>
+
+  <p>Read the traceback from the bottom up. The last line is the type of error and a short description. Above it, the chain of calls leading to it.</p>
+
+  <h2>Common Exceptions</h2>
+
+  <table>
+    <thead><tr><th>Exception</th><th>When it occurs</th></tr></thead>
+    <tbody>
+      <tr><td><code>NameError</code></td><td>Using a name that is not defined</td></tr>
+      <tr><td><code>TypeError</code></td><td>Wrong type for an operation</td></tr>
+      <tr><td><code>ValueError</code></td><td>Right type, wrong value</td></tr>
+      <tr><td><code>KeyError</code></td><td>Missing dictionary key</td></tr>
+      <tr><td><code>IndexError</code></td><td>List index out of range</td></tr>
+      <tr><td><code>ZeroDivisionError</code></td><td>Dividing by zero</td></tr>
+      <tr><td><code>FileNotFoundError</code></td><td>Trying to open a missing file</td></tr>
+    </tbody>
+  </table>
+
+  <h2>try / except</h2>
+
+  <p>Wrap risky code in a <code>try</code> block and handle errors in an <code>except</code> block:</p>
+
+  <pre><code>try:
+    number = int(input("Enter a number: "))
+    print(10 / number)
+except ValueError:
+    print("That was not a number.")
+except ZeroDivisionError:
+    print("Cannot divide by zero.")</code></pre>
+
+  <p>Catch specific exceptions. Do not write a bare <code>except:</code> that hides every error — that makes debugging much harder.</p>
+
+  <h2>finally</h2>
+
+  <p>The <code>finally</code> block runs whether an exception occurred or not. Use it for cleanup:</p>
+
+  <pre><code>try:
+    f = open("data.txt")
+    content = f.read()
+finally:
+    f.close()</code></pre>
+
+  <p>In modern Python, you rarely need <code>finally</code> for files because <code>with</code> handles cleanup. But <code>finally</code> is still useful for other resources like database connections.</p>
+
+  <h2>Raising Exceptions</h2>
+
+  <p>When your own code detects a problem, raise an exception with <code>raise</code>:</p>
+
+  <pre><code>def withdraw(balance, amount):
+    if amount &lt;= 0:
+        raise ValueError("Amount must be positive.")
+    if amount &gt; balance:
+        raise ValueError("Insufficient funds.")
+    return balance - amount</code></pre>
+
+  <p>Raising early, with a clear message, saves hours of debugging later.</p>
+
+  <h2>Custom Exceptions</h2>
+
+  <p>For larger programs, define your own exception types by subclassing <code>Exception</code>:</p>
+
+  <pre><code>class InsufficientFundsError(Exception):
+    pass
+
+def withdraw(balance, amount):
+    if amount &gt; balance:
+        raise InsufficientFundsError("Not enough money.")
+    return balance - amount</code></pre>
+
+  <p>Custom exceptions let you catch errors by category and make your code self-documenting.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Read tracebacks from the bottom up.</li>
+      <li>Catch specific exceptions, not every exception.</li>
+      <li>Use <code>raise</code> to signal problems in your code.</li>
+      <li>Custom exceptions make larger programs cleaner.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 15.1</h4>
+    <ol>
+      <li>Write a program that asks for a number and handles invalid input.</li>
+      <li>Write a function that raises <code>ValueError</code> when given negative numbers.</li>
+      <li>Define a custom exception and use it in a function.</li>
+      <li>Catch your custom exception and print a helpful message.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ PART V ============ -->
+<div class="part">
+  <div class="part-num">Part Five</div>
+  <h1>Objects and Modules</h1>
+  <p class="part-desc">Classes, modules, packages, and the standard library — how Python programs grow beyond a single file.</p>
+</div>
+
+<!-- CHAPTER 16 -->
+<section class="chapter" id="ch16">
+  <div class="chap-num">Chapter Sixteen</div>
+  <h1>Classes and Objects</h1>
+
+  <p class="epigraph">"A class is a blueprint. An object is a thing built from it."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>Defining classes</li>
+      <li>The <code>__init__</code> method</li>
+      <li>Instance methods and attributes</li>
+      <li>Inheritance and dunder methods</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">A class bundles data and behavior together. Where a dictionary stores values, a class stores values and the functions that operate on them. Classes are how larger Python programs organize state.</p>
+
+  <h2>Defining a Class</h2>
+
+  <pre><code>class Dog:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def bark(self):
+        return f"{self.name} says woof!"
+
+d = Dog("Rex", 3)
+print(d.name)      # "Rex"
+print(d.bark())    # "Rex says woof!"</code></pre>
+
+  <p>The <code>__init__</code> method runs when you create an object. It sets up the initial state. The first parameter is always <code>self</code>, a reference to the object being created.</p>
+
+  <h2>Attributes and Methods</h2>
+
+  <p>Attributes are values stored on the object. Methods are functions defined inside the class. Access both with dot notation:</p>
+
+  <pre><code>d.name          # attribute
+d.bark()        # method
+d.age = 4       # update attribute
+d.color = "brown"  # add new attribute (allowed, but avoid)</code></pre>
+
+  <h2>The __str__ Method</h2>
+
+  <p>Define <code>__str__</code> to control what <code>print()</code> shows:</p>
+
+  <pre><code>class Dog:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def __str__(self):
+        return f"Dog(name={self.name}, age={self.age})"
+
+print(Dog("Rex", 3))  # Dog(name=Rex, age=3)</code></pre>
+
+  <p>The methods with double underscores are called dunder methods (double underscore). They hook into Python's built-in behavior: printing, comparing, iterating, and more.</p>
+
+  <h2>Inheritance</h2>
+
+  <p>A class can inherit from another, reusing its behavior and adding new behavior:</p>
+
+  <pre><code>class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        return "Some sound"
+
+class Dog(Animal):
+    def speak(self):
+        return f"{self.name} says woof!"
+
+class Cat(Animal):
+    def speak(self):
+        return f"{self.name} says meow!"
+
+animals = [Dog("Rex"), Cat("Whiskers")]
+for a in animals:
+    print(a.speak())</code></pre>
+
+  <p>The subclasses override <code>speak</code>. When you loop through a list of animals and call <code>speak()</code>, Python picks the right version for each object. This is called polymorphism.</p>
+
+  <h2>Useful Dunder Methods</h2>
+
+  <table>
+    <thead><tr><th>Method</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>__init__</code></td><td>Initialize the object</td></tr>
+      <tr><td><code>__str__</code></td><td>String representation for printing</td></tr>
+      <tr><td><code>__repr__</code></td><td>Developer-friendly representation</td></tr>
+      <tr><td><code>__eq__</code></td><td>Equality with <code>==</code></td></tr>
+      <tr><td><code>__len__</code></td><td>Length with <code>len()</code></td></tr>
+      <tr><td><code>__iter__</code></td><td>Make the object iterable</td></tr>
+    </tbody>
+  </table>
+
+  <h2>When to Use Classes</h2>
+
+  <p>Use a class when you have data and behavior that belong together and you will create many instances. Use a dictionary when the data is simple and short-lived. Do not use classes just because you can; use them when they make the code clearer.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Classes bundle data and behavior.</li>
+      <li><code>__init__</code> runs on creation.</li>
+      <li><code>self</code> refers to the current object.</li>
+      <li>Dunder methods hook into Python's built-in behavior.</li>
+      <li>Use classes when you have data and behavior that belong together.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 16.1</h4>
+    <ol>
+      <li>Create a <code>Book</code> class with title, author, and year.</li>
+      <li>Add a method that returns a description string.</li>
+      <li>Add a <code>__str__</code> method.</li>
+      <li>Create a subclass <code>EBook</code> with a file size attribute.</li>
+      <li>Create a list of books and print each one.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- CHAPTER 17 -->
+<section class="chapter" id="ch17">
+  <div class="chap-num">Chapter Seventeen</div>
+  <h1>Modules and Packages</h1>
+
+  <p class="epigraph">"A module is a file. A package is a folder of files."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>Importing modules</li>
+      <li>Writing your own modules</li>
+      <li>The <code>if __name__ == "__main__"</code> pattern</li>
+      <li>Packages and <code>__init__.py</code></li>
+    </ul>
+  </div>
+
+  <p class="dropcap">A module is a Python file. A package is a folder of modules. As your programs grow, splitting them into modules keeps everything organized and reusable. The same skills let you use the standard library and third-party packages.</p>
+
+  <h2>Importing</h2>
+
+  <pre><code>import math
+math.sqrt(16)   # 4.0
+
+from math import sqrt
+sqrt(16)        # 4.0
+
+from math import sqrt as square_root
+square_root(16) # 4.0</code></pre>
+
+  <p>Use <code>import module</code> when you want to be explicit about where names come from. Use <code>from module import name</code> when you use the name often and the source is obvious. Avoid <code>from module import *</code>; it pollutes your namespace with names you cannot see.</p>
+
+  <h2>Writing a Module</h2>
+
+  <p>Any <code>.py</code> file can be imported. Create <code>math_tools.py</code>:</p>
+
+  <pre><code>def add(a, b):
+    return a + b
+
+def multiply(a, b):
+    return a * b
+
+PI = 3.14159</code></pre>
+
+  <p>Then in another file:</p>
+
+  <pre><code>import math_tools
+
+print(math_tools.add(2, 3))       # 5
+print(math_tools.PI)              # 3.14159</code></pre>
+
+  <p>The module is only executed once, the first time it is imported. Subsequent imports reuse the same module.</p>
+
+  <h2>The __main__ Guard</h2>
+
+  <p>When a module runs as a script, Python sets <code>__name__</code> to <code>"__main__"</code>. When it is imported, <code>__name__</code> is the module's name. This lets a file be both a script and an importable module:</p>
+
+  <pre><code>def main():
+    print("Running as a script.")
+
+if __name__ == "__main__":
+    main()</code></pre>
+
+  <p>Use this pattern in every file that has a main entry point. It prevents code from running when the file is imported.</p>
+
+  <h2>Packages</h2>
+
+  <p>A package is a folder containing modules and an <code>__init__.py</code> file. The <code>__init__.py</code> can be empty, or it can run setup code when the package is imported:</p>
+
+  <pre><code>myproject/
+├── __init__.py
+├── utils.py
+└── models.py</code></pre>
+
+  <p>Then:</p>
+
+  <pre><code>from myproject import utils
+from myproject.models import User</code></pre>
+
+  <h2>Relative Imports</h2>
+
+  <p>Inside a package, you can import sibling modules with a dot:</p>
+
+  <pre><code>from . import utils
+from .models import User</code></pre>
+
+  <p>Relative imports only work inside packages. They are not allowed in scripts that are run directly.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Every <code>.py</code> file is a module.</li>
+      <li>Use <code>import</code> and <code>from ... import ...</code> deliberately.</li>
+      <li>Guard script code with <code>if __name__ == "__main__":</code>.</li>
+      <li>A package is a folder of modules with an <code>__init__.py</code>.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 17.1</h4>
+    <ol>
+      <li>Create a module with two functions and import it from another file.</li>
+      <li>Add the <code>__main__</code> guard and test that importing does not run the code.</li>
+      <li>Create a package with two modules and import one from the other.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- CHAPTER 18 -->
+<section class="chapter" id="ch18">
+  <div class="chap-num">Chapter Eighteen</div>
+  <h1>The Standard Library Tour</h1>
+
+  <p class="epigraph">"Python comes with batteries included."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>Why the standard library matters</li>
+      <li>Modules you will use most</li>
+      <li>How to explore what is available</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">Python ships with hundreds of modules. They cover dates, files, math, networking, text, and almost anything else you might need. Learning the standard library is one of the highest-return investments you can make as a Python programmer.</p>
+
+  <h2>The Big Ones</h2>
+
+  <table>
+    <thead><tr><th>Module</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>os</code></td><td>Operating system interface</td></tr>
+      <tr><td><code>sys</code></td><td>Interpreter and command-line arguments</td></tr>
+      <tr><td><code>pathlib</code></td><td>Object-oriented paths</td></tr>
+      <tr><td><code>json</code></td><td>JSON encoding and decoding</td></tr>
+      <tr><td><code>datetime</code></td><td>Dates and times</td></tr>
+      <tr><td><code>random</code></td><td>Random numbers and choices</td></tr>
+      <tr><td><code>math</code></td><td>Math functions and constants</td></tr>
+      <tr><td><code>collections</code></td><td>Specialized containers (Counter, defaultdict, deque)</td></tr>
+      <tr><td><code>itertools</code></td><td>Tools for iterating efficiently</td></tr>
+      <tr><td><code>functools</code></td><td>Higher-order functions (lru_cache, partial, reduce)</td></tr>
+      <tr><td><code>re</code></td><td>Regular expressions</td></tr>
+      <tr><td><code>sqlite3</code></td><td>Built-in database</td></tr>
+      <tr><td><code>urllib</code></td><td>HTTP and URL handling</td></tr>
+      <tr><td><code>csv</code></td><td>Reading and writing CSV files</td></tr>
+      <tr><td><code>argparse</code></td><td>Command-line argument parsing</td></tr>
+      <tr><td><code>logging</code></td><td>Structured logging</td></tr>
+      <tr><td><code>unittest</code></td><td>Built-in testing framework</td></tr>
+    </tbody>
+  </table>
+
+  <h2>A Few Examples</h2>
+
+  <pre><code>from collections import Counter
+from datetime import datetime, timedelta
+
+words = ["apple", "banana", "apple", "cherry", "apple"]
+counts = Counter(words)
+print(counts.most_common(1))  # [("apple", 3)]
+
+now = datetime.now()
+tomorrow = now + timedelta(days=1)
+print(tomorrow.strftime("%Y-%m-%d"))</code></pre>
+
+  <pre><code>from itertools import combinations
+
+items = ["a", "b", "c"]
+for pair in combinations(items, 2):
+    print(pair)  # ("a", "b"), ("a", "c"), ("b", "c")</code></pre>
+
+  <h2>How to Explore</h2>
+
+  <p>Use <code>help()</code> in the REPL to read documentation for any module, function, or class:</p>
+
+  <pre><code>help(str)
+help(list.append)
+help(json.dumps)</code></pre>
+
+  <p>Use <code>dir()</code> to list everything a module provides:</p>
+
+  <pre><code>import math
+dir(math)</code></pre>
+
+  <p>And, of course, the official documentation at <strong>docs.python.org</strong> is excellent. When in doubt, read the docs.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>The standard library is huge and well-designed.</li>
+      <li>Learn <code>os</code>, <code>pathlib</code>, <code>json</code>, <code>datetime</code>, and <code>collections</code> first.</li>
+      <li>Use <code>help()</code> and <code>dir()</code> to explore.</li>
+      <li>The official documentation is a great reference.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 18.1</h4>
+    <ol>
+      <li>Use <code>Counter</code> to count words in a sentence.</li>
+      <li>Use <code>datetime</code> to print today's date and tomorrow's.</li>
+      <li>Use <code>itertools.combinations</code> to list all pairs from a list of four items.</li>
+      <li>Use <code>help()</code> to read the documentation for <code>random.choice</code>.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ PART VI ============ -->
+<div class="part">
+  <div class="part-num">Part Six</div>
+  <h1>Beyond the Basics</h1>
+  <p class="part-desc">Virtual environments, generators, decorators, testing, and choosing the direction that fits you.</p>
+</div>
+
+<!-- CHAPTER 19 -->
+<section class="chapter" id="ch19">
+  <div class="chap-num">Chapter Nineteen</div>
+  <h1>Virtual Environments and pip</h1>
+
+  <p class="epigraph">"Every project deserves its own room."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>Why virtual environments exist</li>
+      <li>Creating and activating one</li>
+      <li>Installing packages with pip</li>
+      <li>Freezing dependencies</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">Every serious Python project needs a virtual environment. If you install packages globally, you will eventually break your system Python or create conflicts between projects. Virtual environments solve this by giving each project its own isolated set of packages.</p>
+
+  <h2>Creating a Virtual Environment</h2>
+
+  <p>From your project folder:</p>
+
+  <pre><code>python -m venv .venv</code></pre>
+
+  <p>This creates a folder called <code>.venv</code> with its own Python interpreter and its own site-packages directory.</p>
+
+  <h2>Activating It</h2>
+
+  <p>On macOS or Linux:</p>
+
+  <pre><code>source .venv/bin/activate</code></pre>
+
+  <p>On Windows (PowerShell):</p>
+
+  <pre><code>.venv\Scripts\Activate.ps1</code></pre>
+
+  <p>On Windows (cmd):</p>
+
+  <pre><code>.venv\Scripts\activate.bat</code></pre>
+
+  <p>Your prompt will change to show the environment name. Now, anything you install or run will use this environment.</p>
+
+  <h2>Installing Packages</h2>
+
+  <pre><code>pip install requests
+pip install pandas
+pip install pytest</code></pre>
+
+  <p>To see what is installed:</p>
+
+  <pre><code>pip list</code></pre>
+
+  <h2>Freezing Dependencies</h2>
+
+  <p>When you want to share your project, save the exact versions you are using:</p>
+
+  <pre><code>pip freeze &gt; requirements.txt</code></pre>
+
+  <p>Someone else can then install everything:</p>
+
+  <pre><code>pip install -r requirements.txt</code></pre>
+
+  <h2>Deactivating</h2>
+
+  <p>When you are done:</p>
+
+  <pre><code>deactivate</code></pre>
+
+  <p>This returns you to the system Python. Never install project packages outside a virtual environment. Make activating the environment the first thing you do when you sit down to work on a project.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Use one virtual environment per project.</li>
+      <li>Create with <code>python -m venv .venv</code>.</li>
+      <li>Activate before installing anything.</li>
+      <li>Freeze dependencies with <code>pip freeze</code>.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 19.1</h4>
+    <ol>
+      <li>Create a new folder and a virtual environment inside it.</li>
+      <li>Activate the environment and install <code>requests</code>.</li>
+      <li>Run <code>pip list</code> and see the packages.</li>
+      <li>Freeze to <code>requirements.txt</code> and open the file.</li>
+      <li>Deactivate the environment.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- CHAPTER 20 -->
+<section class="chapter" id="ch20">
+  <div class="chap-num">Chapter Twenty</div>
+  <h1>Iterators, Generators, and Decorators</h1>
+
+  <p class="epigraph">"Some of Python's most powerful ideas hide behind small keywords."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>How iteration works</li>
+      <li>Generators with <code>yield</code></li>
+      <li>Decorators</li>
+      <li>Why these matter in real code</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">This chapter is a step up in abstraction. If you understand iteration, generators, and decorators, you will read other people's Python code with much more confidence — and you will find that these tools solve problems that would otherwise be awkward.</p>
+
+  <h2>Iterators</h2>
+
+  <p>An iterable is anything you can loop over. An iterator is the object that produces the next value. Under the hood, Python uses <code>__iter__</code> and <code>__next__</code> to make this work. You rarely write these yourself, but knowing they exist explains a lot.</p>
+
+  <pre><code>nums = [1, 2, 3]
+it = iter(nums)
+print(next(it))  # 1
+print(next(it))  # 2
+print(next(it))  # 3
+# next(it) now raises StopIteration</code></pre>
+
+  <h2>Generators</h2>
+
+  <p>A generator is a function that produces values one at a time using <code>yield</code>. It does not compute all values at once; it produces them lazily, on demand:</p>
+
+  <pre><code>def count_up_to(n):
+    i = 1
+    while i &lt;= n:
+        yield i
+        i += 1
+
+for n in count_up_to(5):
+    print(n)  # 1 2 3 4 5</code></pre>
+
+  <p>Generators are memory-efficient. They can represent infinite sequences because they only produce values as needed. Use them for large data, streams, or pipelines.</p>
+
+  <pre><code>def read_lines(path):
+    with open(path) as f:
+        for line in f:
+            yield line.rstrip()
+
+for line in read_lines("big.txt"):
+    print(line)</code></pre>
+
+  <p>This reads a file line by line without loading the whole file into memory.</p>
+
+  <h2>Generator Expressions</h2>
+
+  <p>Like list comprehensions, but with parentheses instead of square brackets:</p>
+
+  <pre><code>squares = (n ** 2 for n in range(10))
+sum(squares)  # 285
+
+# Or in one line:
+total = sum(n ** 2 for n in range(10))</code></pre>
+
+  <p>Use generator expressions when you only need to consume the values once and do not want to store them in memory.</p>
+
+  <h2>Decorators</h2>
+
+  <p>A decorator is a function that wraps another function to add behavior. You apply it with the <code>@</code> symbol:</p>
+
+  <pre><code>def log_calls(func):
+    def wrapper(*args, **kwargs):
+        print(f"Calling {func.__name__} with {args}")
+        result = func(*args, **kwargs)
+        print(f"{func.__name__} returned {result}")
+        return result
+    return wrapper
+
+@log_calls
+def add(a, b):
+    return a + b
+
+add(2, 3)
+# Calling add with (2, 3)
+# add returned 5</code></pre>
+
+  <p>Decorators are used everywhere in real code: caching, authentication, timing, retries, and more. Once you understand them, you will see them in every library you use.</p>
+
+  <h2>A Practical Example</h2>
+
+  <pre><code>import time
+from functools import wraps
+
+def timed(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        elapsed = time.time() - start
+        print(f"{func.__name__} took {elapsed:.4f}s")
+        return result
+    return wrapper
+
+@timed
+def slow_function():
+    time.sleep(1)
+
+slow_function()  # prints: slow_function took 1.0000s</code></pre>
+
+  <p>The <code>@wraps</code> decorator preserves the original function's name and docstring, which is important for debugging and documentation.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Generators produce values lazily with <code>yield</code>.</li>
+      <li>Use generators for large data or streaming.</li>
+      <li>Decorators wrap functions to add behavior.</li>
+      <li>Use <code>@wraps</code> on your wrappers.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 20.1</h4>
+    <ol>
+      <li>Write a generator that produces the first n Fibonacci numbers.</li>
+      <li>Use a generator expression to sum the squares of numbers 1–100.</li>
+      <li>Write a <code>@timed</code> decorator and apply it to a function.</li>
+      <li>Write a <code>@retry</code> decorator that retries a function twice on failure.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- CHAPTER 21 -->
+<section class="chapter" id="ch21">
+  <div class="chap-num">Chapter Twenty-One</div>
+  <h1>Testing Your Code</h1>
+
+  <p class="epigraph">"If it is not tested, it is broken."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>Why testing matters</li>
+      <li>Writing tests with <code>pytest</code></li>
+      <li>Test-driven development</li>
+      <li>What to test and what not to</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">Tests are code that checks other code. They catch bugs before your users do, they let you refactor with confidence, and they document what your code is supposed to do. Every professional Python programmer writes tests.</p>
+
+  <h2>Your First Test</h2>
+
+  <p>Install pytest inside your virtual environment:</p>
+
+  <pre><code>pip install pytest</code></pre>
+
+  <p>Suppose you have a function in <code>calc.py</code>:</p>
+
+  <pre><code>def add(a, b):
+    return a + b</code></pre>
+
+  <p>Create a file called <code>test_calc.py</code>:</p>
+
+  <pre><code>from calc import add
+
+def test_add_positive_numbers():
+    assert add(2, 3) == 5
+
+def test_add_negative_numbers():
+    assert add(-1, -1) == -2
+
+def test_add_zero():
+    assert add(0, 5) == 5</code></pre>
+
+  <p>Run:</p>
+
+  <pre><code>pytest</code></pre>
+
+  <p>Pytest finds files starting with <code>test_</code>, runs functions starting with <code>test_</code>, and reports pass or fail.</p>
+
+  <h2>Testing Exceptions</h2>
+
+  <pre><code>import pytest
+
+def test_division_by_zero():
+    with pytest.raises(ZeroDivisionError):
+        1 / 0</code></pre>
+
+  <p>The <code>pytest.raises</code> context manager fails the test if the expected exception is not raised.</p>
+
+  <h2>Test-Driven Development</h2>
+
+  <p>TDD is a workflow: write the test first, watch it fail, then write the code to make it pass. This sounds backward, but it forces you to think about the interface before the implementation and it guarantees every line you write is tested.</p>
+
+  <ol>
+    <li>Write a failing test.</li>
+    <li>Write the simplest code that passes.</li>
+    <li>Refactor.</li>
+    <li>Repeat.</li>
+  </ol>
+
+  <h2>What to Test</h2>
+
+  <p>Test the behavior, not the implementation. Test the edges: empty inputs, zero, negative numbers, very large values. Test that errors are raised when they should be. Do not test private functions or trivial getters and setters.</p>
+
+  <h2>What Not to Do</h2>
+
+  <p>Do not chase 100% coverage. Do not write tests that only pass because they check the same wrong assumption as the code. Do not write tests that depend on the order they run. A good test fails when the code is wrong and passes when it is right — nothing more, nothing less.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Tests catch bugs before users do.</li>
+      <li>Use <code>pytest</code> — it is simple and powerful.</li>
+      <li>Test behavior, not implementation.</li>
+      <li>Test the edges: empty, zero, negative, huge.</li>
+    </ul>
+  </div>
+
+  <div class="exercise">
+    <h4>Exercise 21.1</h4>
+    <ol>
+      <li>Install pytest in a virtual environment.</li>
+      <li>Write a function and three tests for it.</li>
+      <li>Run the tests and confirm they pass.</li>
+      <li>Introduce a bug and confirm the tests fail.</li>
+      <li>Add a test for an exception case.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- CHAPTER 22 -->
+<section class="chapter" id="ch22">
+  <div class="chap-num">Chapter Twenty-Two</div>
+  <h1>Choosing Your Direction</h1>
+
+  <p class="epigraph">"You cannot learn everything. You can learn one thing well."</p>
+
+  <div class="intro-box">
+    <h4>In This Chapter</h4>
+    <ul>
+      <li>The main paths forward in Python</li>
+      <li>How to choose</li>
+      <li>What to do after you choose</li>
+    </ul>
+  </div>
+
+  <p class="dropcap">Python is huge. You cannot learn everything at once, and you should not try. Choose one direction and go deep. You can always branch out later.</p>
+
+  <table>
+    <thead><tr><th>Direction</th><th>What to learn next</th><th>Good for</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Web development</strong></td><td>Flask, Django, or FastAPI</td><td>APIs, websites, backends</td></tr>
+      <tr><td><strong>Data analysis</strong></td><td>pandas, NumPy, Jupyter</td><td>Working with datasets</td></tr>
+      <tr><td><strong>Machine learning</strong></td><td>scikit-learn, PyTorch</td><td>Models, prediction, AI</td></tr>
+      <tr><td><strong>Automation</strong></td><td>requests, Selenium, argparse</td><td>Scripts, tools, scraping</td></tr>
+      <tr><td><strong>Scientific computing</strong></td><td>SciPy, SymPy, Matplotlib</td><td>Research, math, simulations</td></tr>
+      <tr><td><strong>Desktop applications</strong></td><td>Tkinter, PyQt</td><td>Local GUI tools</td></tr>
+      <tr><td><strong>Game development</strong></td><td>Pygame</td><td>Small games, prototypes</td></tr>
+    </tbody>
+  </table>
+
+  <p>If you enjoy building websites, go web. If you enjoy working with data, go data. If you enjoy making tools for yourself, go automation. If you enjoy math and puzzles, go machine learning or science.</p>
+
+  <p>Pick one. Build three projects with it. Then decide whether to go deeper or switch.</p>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Choose one direction and go deep.</li>
+      <li>Build three projects before deciding to switch.</li>
+      <li>Python is broad; specialization is how you get good.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ PART VII ============ -->
+<div class="part">
+  <div class="part-num">Part Seven</div>
+  <h1>The Practice</h1>
+  <p class="part-desc">How to actually learn, what to avoid, and how long it takes.</p>
+</div>
+
+<!-- CHAPTER 23 -->
+<section class="chapter" id="ch23">
+  <div class="chap-num">Chapter Twenty-Three</div>
+  <h1>How to Practice</h1>
+
+  <p class="epigraph">"Knowledge comes from reading. Skill comes from doing."</p>
+
+  <p class="dropcap">This chapter matters more than any resource list. Learning to code is not about collecting information. It is about building skill, and skill comes from deliberate practice.</p>
+
+  <ol>
+    <li><strong>Code every day.</strong> Even 30 minutes beats 5 hours once a week. Consistency builds muscle memory.</li>
+    <li><strong>Build projects, not tutorials.</strong> After each tutorial, close it and rebuild the same thing from memory. This is where the real learning happens.</li>
+    <li><strong>Struggle first.</strong> Try to solve a problem for 20–30 minutes before looking up the answer. The struggle is the learning.</li>
+    <li><strong>Read error messages.</strong> They tell you the file, the line, and often the exact problem. Most beginners ignore them and lose hours.</li>
+    <li><strong>Use the REPL.</strong> Test a single line or check how something behaves before writing a whole file.</li>
+    <li><strong>Teach someone else.</strong> Explaining decorators or generators out loud exposes the gaps in your understanding.</li>
+    <li><strong>Revisit old projects.</strong> Every few weeks, return to something you built and improve it. You will be surprised how much you have learned.</li>
+  </ol>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Consistency beats intensity.</li>
+      <li>Build, do not just watch.</li>
+      <li>Struggle before looking up the answer.</li>
+      <li>Teach to test your understanding.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CHAPTER 24 -->
+<section class="chapter" id="ch24">
+  <div class="chap-num">Chapter Twenty-Four</div>
+  <h1>Common Pitfalls</h1>
+
+  <p class="epigraph">"The mistakes are predictable. Knowing them in advance saves months."</p>
+
+  <p class="dropcap">Every beginner makes some of these mistakes. The point is not to avoid them entirely but to recognize them quickly and correct course.</p>
+
+  <ul>
+    <li><strong>Tutorial hell.</strong> Watching videos endlessly without building anything yourself. Break the cycle by building after every tutorial.</li>
+    <li><strong>Skipping fundamentals.</strong> Jumping to pandas or Django before understanding Python. Frameworks are easier when the language is solid.</li>
+    <li><strong>Mutable default arguments.</strong> The bug that catches everyone once. Use <code>None</code> as the default.</li>
+    <li><strong>Ignoring virtual environments.</strong> Installing packages globally will break something. Always use a venv.</li>
+    <li><strong>Fear of breaking things.</strong> You cannot break your computer by writing Python. Experiment freely.</li>
+    <li><strong>Comparing yourself to others.</strong> Everyone learns at a different pace. The only useful comparison is to yourself a month ago.</li>
+    <li><strong>Chasing every new library.</strong> You do not need the newest tool. Learn the language first.</li>
+    <li><strong>Giving up too early.</strong> The first three months are the hardest. Push through. It gets easier.</li>
+  </ul>
+
+  <div class="takeaway">
+    <h4>Key Takeaways</h4>
+    <ul>
+      <li>Tutorial hell is real. Build to escape it.</li>
+      <li>Fundamentals first. Libraries later.</li>
+      <li>Virtual environments are not optional.</li>
+      <li>The first three months are the hardest.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CHAPTER 25 -->
+<section class="chapter" id="ch25">
+  <div class="chap-num">Chapter Twenty-Five</div>
+  <h1>A Realistic Timeline</h1>
+
+  <p class="epigraph">"Everyone wants a shortcut. There isn't one."</p>
+
+  <p class="dropcap">How long does it take to learn Python? It depends on your goals, your background, and how much time you put in. Here are honest averages for someone practicing consistently every day.</p>
+
+  <table>
+    <thead><tr><th>Goal</th><th>Time (with daily practice)</th></tr></thead>
+    <tbody>
+      <tr>
